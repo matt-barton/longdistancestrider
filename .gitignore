@@ -1,6 +1,10 @@
 ﻿node_modules
 .idea/*
 appsettings.Development.json
-bin\*
-obj\*
-sql\data
+[Dd]ebug/
+[Rr]elease/
+x64/
+[Bb]in/
+[Oo]bj/
+*/sql/data/*
+*.DotSettings.user
