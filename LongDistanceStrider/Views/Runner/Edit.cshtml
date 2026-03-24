@@ -1,0 +1,53 @@
+@{
+    Layout = "_Layout";
+}
+
+@model RunnerViewModel;
+
+<form method="post" enctype="application/x-www-form-urlencoded">
+    @Html.HiddenFor(r => r.Id)
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+            @Html.LabelFor(r => r.FirstName, new { @class="govuk-heading-s"})
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+            @Html.TextBoxFor(r => r.FirstName, new { @class = "govuk-input"})
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+            @Html.LabelFor(r => r.LastName, new { @class="govuk-heading-s"})
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+            @Html.TextBoxFor(r => r.LastName, new { @class = "govuk-input"})
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+            @Html.LabelFor(r => r.Gender, new { @class="govuk-heading-s"})
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+            @Html.RadioButtonFor(r => r.Gender, "M") <span class="govuk-body">Male</span>
+            @Html.RadioButtonFor(r => r.Gender, "F") <span class="govuk-body">Female</span>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save changes
+            </button>
+        </div>
+    </div>
+    @if(Model.ChangesSaved)
+    {
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <div class="govuk-panel govuk-panel--confirmation">
+                <h1 class="govuk-panel__title">
+                    Changes saved successfully
+                </h1>
+            </div>
+        </div>
+    </div>
+    }
+</form>

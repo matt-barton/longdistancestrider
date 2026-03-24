@@ -1,0 +1,45 @@
+@model List<RunnerRaceEntryViewModel>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <p class="govuk-heading-s">
+                    Race
+                </p>
+            </div>
+            <div class="govuk-grid-column-one-quarter">
+                <p class="govuk-heading-s">
+                    Date
+                </p>
+            </div>
+            <div class="govuk-grid-column-one-quarter">
+                <p class="govuk-heading-s">
+                    Miles
+                </p>
+            </div>
+        </div>
+        @foreach(var entry in Model)
+        {
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <p class="govuk-body">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/Race/@entry.RaceId">
+                            @entry.RaceName
+                        </a>
+                    </p>
+                </div>
+                <div class="govuk-grid-column-one-quarter">
+                    <p class="govuk-body">
+                        @entry.Date
+                    </p>
+                </div>
+                <div class="govuk-grid-column-one-quarter">
+                    <p class="govuk-body">
+                        @entry.Miles.ToString("0.###")
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
