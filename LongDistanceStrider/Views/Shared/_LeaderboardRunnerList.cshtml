@@ -1,44 +1,56 @@
 @model IEnumerable<LeaderboardRunnerViewModel>
 
 <div class="lds-leaderboard">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-quarter">
-            <h3 class="govuk-heading-s">
-                P
-            </h3>
-        </div>
-        <div class="govuk-grid-column-one-half">
-            <h3 class="govuk-heading-s">
-                Name
-            </h3>
-        </div>
-        <div class="govuk-grid-column-one-quarter">
-            <h3 class="govuk-heading-s">
-                Miles
-            </h3>
-        </div>
-    </div>
-
-    @foreach(var entry in Model)
+    
+    @if (Model.Any())
     {
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-quarter">
-                <p class="govuk-body">
-                    @entry.Position
-                </p>
+                <h3 class="govuk-heading-s">
+                    P
+                </h3>
             </div>
-
             <div class="govuk-grid-column-one-half">
-                <p class="govuk-body">
-                    <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@entry.Id">
-                        @entry.Name
-                    </a>
-                </p>
+                <h3 class="govuk-heading-s">
+                    Name
+                </h3>
             </div>
             <div class="govuk-grid-column-one-quarter">
-                <p class="govuk-body">
-                    @entry.Miles.ToString("0.###")
-                </p>
+                <h3 class="govuk-heading-s">
+                    Miles
+                </h3>
+            </div>
+        </div>
+        
+        @foreach (var entry in Model)
+        {
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-quarter">
+                    <p class="govuk-body">
+                        @entry.Position
+                    </p>
+                </div>
+
+                <div class="govuk-grid-column-one-half">
+                    <p class="govuk-body">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@entry.Id">
+                            @entry.Name
+                        </a>
+                    </p>
+                </div>
+                <div class="govuk-grid-column-one-quarter">
+                    <p class="govuk-body">
+                        @entry.Miles.ToString("0.###")
+                    </p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <p class="govuk-body-l">No results yet!</p>
             </div>
         </div>
     }
