@@ -35,7 +35,8 @@ namespace LongDistanceStrider.Controllers
 
             var entries = _ldsContext.RacePartipation
                 .Where(r => r.RaceId == Id)
-                .OrderBy(r => r.RunnerName)
+                .OrderByDescending(r => r.Miles)
+                .ThenBy(r => r.RunnerName)
                 .ToList();
 
             var model = new RaceViewModel
