@@ -41,7 +41,9 @@
                 </div>
                 <div class="govuk-grid-column-one-third">
                     <p class="govuk-body">
-                        @entry.Miles.ToString("0.###")
+                        <a class="govuk-link govuk-link--no-visited-state" href="/RaceEntry/Edit/@Model.Id/@entry.RunnerId/">
+                            @entry.Miles.ToString("0.###")
+                        </a>
                     </p>
                 </div>
             </div>

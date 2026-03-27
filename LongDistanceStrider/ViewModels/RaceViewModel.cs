@@ -31,4 +31,7 @@ public class RaceEntryViewModel
     public string? RunnerName { get; set; }
     public int? RunnerId { get; set; }
     public decimal Miles { get; set; }
+    public int? RaceId { get; set; }
+    public string? RaceName { get; set; }
+    public bool ChangesSaved { get; set; }
 }
