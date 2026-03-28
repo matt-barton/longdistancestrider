@@ -1,0 +1,185 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.slim.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.slim.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.slim.min.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
+      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="govuk-frontend\assets\manifest.json" />
+      <None Include="govuk-frontend\assets\rebrand\manifest.json" />
+      <None Include="govuk-frontend\components\accordion\fixtures.json" />
+      <None Include="govuk-frontend\components\accordion\macro-options.json" />
+      <None Include="govuk-frontend\components\back-link\fixtures.json" />
+      <None Include="govuk-frontend\components\back-link\macro-options.json" />
+      <None Include="govuk-frontend\components\breadcrumbs\fixtures.json" />
+      <None Include="govuk-frontend\components\breadcrumbs\macro-options.json" />
+      <None Include="govuk-frontend\components\button\fixtures.json" />
+      <None Include="govuk-frontend\components\button\macro-options.json" />
+      <None Include="govuk-frontend\components\character-count\fixtures.json" />
+      <None Include="govuk-frontend\components\character-count\macro-options.json" />
+      <None Include="govuk-frontend\components\checkboxes\fixtures.json" />
+      <None Include="govuk-frontend\components\checkboxes\macro-options.json" />
+      <None Include="govuk-frontend\components\cookie-banner\fixtures.json" />
+      <None Include="govuk-frontend\components\cookie-banner\macro-options.json" />
+      <None Include="govuk-frontend\components\date-input\fixtures.json" />
+      <None Include="govuk-frontend\components\date-input\macro-options.json" />
+      <None Include="govuk-frontend\components\details\fixtures.json" />
+      <None Include="govuk-frontend\components\details\macro-options.json" />
+      <None Include="govuk-frontend\components\error-message\fixtures.json" />
+      <None Include="govuk-frontend\components\error-message\macro-options.json" />
+      <None Include="govuk-frontend\components\error-summary\fixtures.json" />
+      <None Include="govuk-frontend\components\error-summary\macro-options.json" />
+      <None Include="govuk-frontend\components\exit-this-page\fixtures.json" />
+      <None Include="govuk-frontend\components\exit-this-page\macro-options.json" />
+      <None Include="govuk-frontend\components\fieldset\fixtures.json" />
+      <None Include="govuk-frontend\components\fieldset\macro-options.json" />
+      <None Include="govuk-frontend\components\file-upload\fixtures.json" />
+      <None Include="govuk-frontend\components\file-upload\macro-options.json" />
+      <None Include="govuk-frontend\components\footer\fixtures.json" />
+      <None Include="govuk-frontend\components\footer\macro-options.json" />
+      <None Include="govuk-frontend\components\header\fixtures.json" />
+      <None Include="govuk-frontend\components\header\macro-options.json" />
+      <None Include="govuk-frontend\components\hint\fixtures.json" />
+      <None Include="govuk-frontend\components\hint\macro-options.json" />
+      <None Include="govuk-frontend\components\input\fixtures.json" />
+      <None Include="govuk-frontend\components\input\macro-options.json" />
+      <None Include="govuk-frontend\components\inset-text\fixtures.json" />
+      <None Include="govuk-frontend\components\inset-text\macro-options.json" />
+      <None Include="govuk-frontend\components\label\fixtures.json" />
+      <None Include="govuk-frontend\components\label\macro-options.json" />
+      <None Include="govuk-frontend\components\notification-banner\fixtures.json" />
+      <None Include="govuk-frontend\components\notification-banner\macro-options.json" />
+      <None Include="govuk-frontend\components\pagination\fixtures.json" />
+      <None Include="govuk-frontend\components\pagination\macro-options.json" />
+      <None Include="govuk-frontend\components\panel\fixtures.json" />
+      <None Include="govuk-frontend\components\panel\macro-options.json" />
+      <None Include="govuk-frontend\components\password-input\fixtures.json" />
+      <None Include="govuk-frontend\components\password-input\macro-options.json" />
+      <None Include="govuk-frontend\components\phase-banner\fixtures.json" />
+      <None Include="govuk-frontend\components\phase-banner\macro-options.json" />
+      <None Include="govuk-frontend\components\radios\fixtures.json" />
+      <None Include="govuk-frontend\components\radios\macro-options.json" />
+      <None Include="govuk-frontend\components\select\fixtures.json" />
+      <None Include="govuk-frontend\components\select\macro-options.json" />
+      <None Include="govuk-frontend\components\service-navigation\fixtures.json" />
+      <None Include="govuk-frontend\components\service-navigation\macro-options.json" />
+      <None Include="govuk-frontend\components\skip-link\fixtures.json" />
+      <None Include="govuk-frontend\components\skip-link\macro-options.json" />
+      <None Include="govuk-frontend\components\summary-list\fixtures.json" />
+      <None Include="govuk-frontend\components\summary-list\macro-options.json" />
+      <None Include="govuk-frontend\components\table\fixtures.json" />
+      <None Include="govuk-frontend\components\table\macro-options.json" />
+      <None Include="govuk-frontend\components\tabs\fixtures.json" />
+      <None Include="govuk-frontend\components\tabs\macro-options.json" />
+      <None Include="govuk-frontend\components\tag\fixtures.json" />
+      <None Include="govuk-frontend\components\tag\macro-options.json" />
+      <None Include="govuk-frontend\components\task-list\fixtures.json" />
+      <None Include="govuk-frontend\components\task-list\macro-options.json" />
+      <None Include="govuk-frontend\components\textarea\fixtures.json" />
+      <None Include="govuk-frontend\components\textarea\macro-options.json" />
+      <None Include="govuk-frontend\components\warning-text\fixtures.json" />
+      <None Include="govuk-frontend\components\warning-text\macro-options.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Home\Index.cshtml" />
+      <AdditionalFiles Include="Views\RaceEntry\Edit.cshtml" />
+      <AdditionalFiles Include="Views\RaceParticipation\Index.cshtml" />
+      <AdditionalFiles Include="Views\Race\Index.cshtml" />
+      <AdditionalFiles Include="Views\RunnerConsolidation\Index.cshtml" />
+      <AdditionalFiles Include="Views\Runner\Edit.cshtml" />
+      <AdditionalFiles Include="Views\Runner\Index.cshtml" />
+      <AdditionalFiles Include="Views\Runner\Leaderboard.cshtml" />
+      <AdditionalFiles Include="Views\Runner\List.cshtml" />
+      <AdditionalFiles Include="Views\Shared\_Layout.cshtml" />
+      <AdditionalFiles Include="Views\Shared\_LeaderboardRunnerList.cshtml" />
+      <AdditionalFiles Include="Views\Shared\_RunnerRaceParticipation.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AspNetCore.SassCompiler" Version="1.98.0" />
+      <PackageReference Include="DartSassBuilder" Version="1.1.0" />
+      <PackageReference Include="GovUk.Frontend.AspNetCore" Version="3.5.1" />
+      <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
+      <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.9" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+</Project>

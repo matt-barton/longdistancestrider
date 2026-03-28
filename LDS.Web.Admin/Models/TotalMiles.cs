@@ -1,0 +1,19 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace LDS.Web.Admin.Models;
+
+[Table("vTotalMiles")]
+[PrimaryKey(nameof(RunnerId))]
+public class TotalMiles
+{
+    public int RunnerId { get; set; }
+
+    public decimal Miles { get; set; }
+
+    public string? LastName { get; set; }
+
+    public string? FirstName { get; set; }
+
+    public string? Gender { get; set; }
+}

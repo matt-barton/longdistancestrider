@@ -1,0 +1,28 @@
+@{
+    Layout = "_Layout";
+}
+
+@model LDS.Web.Admin.ViewModels.RunnerViewModel;
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <h1 class="govuk-heading-l">@Model.DisplayName</h1>
+    </div>
+    <div class="govuk-grid-column-one-quarter">
+        <span class="govuk-caption-l top-pad-5">(@(String.IsNullOrEmpty(Model.Gender) ? "Gender not set" : Model.Gender))</span>
+    </div>
+    <div class="govuk-grid-column-one-quarter">
+        <a class="govuk-link govuk-link--no-visited-state" href="/Runner/Edit/@Model.Id">Edit</a>
+    </div>
+
+</div>
+
+@await Html.PartialAsync("_RunnerRaceParticipation", Model.RaceEntries)
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+        <p class="govuk-body">
+            <span class="govuk-heading-s">Total:</span> @Model.TotalMiles?.ToString("0.###")
+        </p>
+    </div>
+</div>
