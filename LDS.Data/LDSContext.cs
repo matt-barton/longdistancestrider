@@ -1,10 +1,11 @@
-using LDS.Web.Admin.Configuration;
+using LDS.Data.Configuration;
+using LDS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace LDS.Web.Admin.Models;
+namespace LDS.Data;
 
-public class LDSContext : DbContext
+public class LdsContext : DbContext
 {
     public DbSet<Runner> Runners { get; set; }
     public DbSet<Race> Races { get; set; }
@@ -16,7 +17,7 @@ public class LDSContext : DbContext
     
     private readonly Settings _settings;
 
-    public LDSContext (IOptions<Settings> settings)
+    public LdsContext (IOptions<Settings> settings)
     {
         _settings = settings.Value;
     }

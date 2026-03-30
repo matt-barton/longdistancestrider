@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace LDS.Web.Admin.Models;
+namespace LDS.Data.Models;
 
 [Table("RaceEntry")]
 [PrimaryKey(nameof(RunnerId), nameof(RaceId))]

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LDS.Web.Admin.Models;
+namespace LDS.Data.Models;
 
 [Table("Parameters")]
 public class Parameter

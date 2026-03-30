@@ -1,4 +1,4 @@
-namespace LDS.Web.Admin.Configuration;
+namespace LDS.Data.Configuration;
 
 public class Settings
 {
