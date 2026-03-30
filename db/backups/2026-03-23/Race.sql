@@ -1,3 +1,6 @@
+SET IDENTITY_INSERT [lds-db].dbo.Race ON
+GO
+
 INSERT INTO [lds-db].dbo.Race (Id, Name, Date) VALUES (82, N' 10 Res Moorland marathon', N'2025-03-01');
 INSERT INTO [lds-db].dbo.Race (Id, Name, Date) VALUES (469, N'20th Regular Irregular Race', N'2025-12-13');
 INSERT INTO [lds-db].dbo.Race (Id, Name, Date) VALUES (444, N'36th British and Irish Masters Cross Country International', N'2025-11-15');
@@ -480,3 +483,6 @@ INSERT INTO [lds-db].dbo.Race (Id, Name, Date) VALUES (402, N'Yorkshire Coast 10
 INSERT INTO [lds-db].dbo.Race (Id, Name, Date) VALUES (20, N'Yorkshire Cross Country Championships 2025', N'2025-01-04');
 INSERT INTO [lds-db].dbo.Race (Id, Name, Date) VALUES (408, N'Yorkshire Marathon', N'2025-10-19');
 INSERT INTO [lds-db].dbo.Race (Id, Name, Date) VALUES (290, N'Yorkshire Wolds Ultra', N'2025-07-26');
+
+SET IDENTITY_INSERT [lds-db].dbo.Race OFF
+GO

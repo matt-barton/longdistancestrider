@@ -1,3 +1,6 @@
+SET IDENTITY_INSERT [lds-db].dbo.Runner ON
+GO
+
 INSERT INTO [lds-db].dbo.Runner (Id, FirstName, LastName, Gender) VALUES (32, N'Abbie', N'Pearse', N'F');
 INSERT INTO [lds-db].dbo.Runner (Id, FirstName, LastName, Gender) VALUES (33, N'Cara', N'Hanson', N'F');
 INSERT INTO [lds-db].dbo.Runner (Id, FirstName, LastName, Gender) VALUES (34, N'James', N'Lawrence', N'M');
@@ -557,3 +560,6 @@ INSERT INTO [lds-db].dbo.Runner (Id, FirstName, LastName, Gender) VALUES (677, N
 INSERT INTO [lds-db].dbo.Runner (Id, FirstName, LastName, Gender) VALUES (678, N'Kal', N'Wright', N'M');
 INSERT INTO [lds-db].dbo.Runner (Id, FirstName, LastName, Gender) VALUES (680, N'Craig', N'Burton', N'M');
 INSERT INTO [lds-db].dbo.Runner (Id, FirstName, LastName, Gender) VALUES (681, N'Catherine', N'Bate', N'F');
+
+SET IDENTITY_INSERT [lds-db].dbo.Runner OFF
+GO

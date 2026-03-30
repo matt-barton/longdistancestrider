@@ -1,3 +1,4 @@
+
 INSERT INTO [lds-db].dbo.RaceEntry (RunnerId, RaceId, Miles) VALUES (32, 15, 13.100);
 INSERT INTO [lds-db].dbo.RaceEntry (RunnerId, RaceId, Miles) VALUES (32, 20, 5.120);
 INSERT INTO [lds-db].dbo.RaceEntry (RunnerId, RaceId, Miles) VALUES (32, 66, 13.100);
