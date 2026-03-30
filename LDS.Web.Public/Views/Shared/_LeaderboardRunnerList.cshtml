@@ -1,0 +1,38 @@
+@model IEnumerable<LDS.Web.Shared.ViewModels.LeaderboardRunnerViewModel>
+
+<div class="lds-leaderboard">
+    
+    @if (Model.Any())
+    {
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">P</th>
+                <th scope="col" class="govuk-table__header">Name</th>
+                <th scope="col" class="govuk-table__header">Miles</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            @foreach (var entry in Model)
+            {
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">@entry.Position</th>
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@entry.Id">
+                            @entry.Name
+                        </a>
+                    </td>
+                    <td class="govuk-table__cell">@entry.Miles.ToString("0.###")</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <p class="govuk-body-l">No results yet!</p>
+            </div>
+        </div>
+    }
+</div>

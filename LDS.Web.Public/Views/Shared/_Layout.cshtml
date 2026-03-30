@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "_GovUkPageTemplate";
+}
+
+@section Head {
+    <meta charset="utf-8">
+    <title>Long Distance Strider</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" sizes="48x48" href="/assets/rebrand/images/favicon.ico">
+    <link rel="icon" sizes="any" href="/assets/rebrand/images/favicon.svg" type="image/svg+xml">
+    <link rel="mask-icon" href="/assets/rebrand/images/govuk-icon-mask.svg" color="#1d70b8">
+    <link rel="apple-touch-icon" href="/assets/rebrand/images/govuk-icon-180.png">
+    <link rel="manifest" href="/assets/rebrand/manifest.json">
+    <link href="/css/main.css" rel="stylesheet">
+    
+    <meta property="og:image" content="http://localhost:5082/assets/rebrand/images/govuk-opengraph-image.png">
+}
+
+@section Header {
+    <govuk-header home-page-url="https://gov.uk/" />
+
+    <govuk-service-navigation service-name="Long Distance Strider" service-url="/">
+        <govuk-service-navigation-nav>
+            <govuk-service-navigation-nav-item href="/Leaderboard/M">Men</govuk-service-navigation-nav-item>
+            <govuk-service-navigation-nav-item href="/Leaderboard/F">Women</govuk-service-navigation-nav-item>
+            <govuk-service-navigation-nav-item href="/Races">Races</govuk-service-navigation-nav-item>
+        </govuk-service-navigation-nav>
+    </govuk-service-navigation>
+}
+
+<div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+        @RenderBody()
+    </main>
+</div>
+
+@section Footer {
+    <govuk-footer>
+        <govuk-footer-meta>
+            <govuk-footer-meta-items>
+                <govuk-footer-meta-item href="/About">About LDS</govuk-footer-meta-item>
+            </govuk-footer-meta-items>
+        </govuk-footer-meta>
+    </govuk-footer>
+}

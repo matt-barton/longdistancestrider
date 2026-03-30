@@ -1,0 +1,37 @@
+﻿@model LDS.Web.Shared.ViewModels.LeaderboardViewModel
+
+@{
+    ViewBag.Title = "Long Distance Strider";
+    Layout = "_Layout";
+}
+
+<h1 class="govuk-heading-l">Long Distance Strider @Model.Year</h1>
+
+<p class="govuk-body">
+    Top ten in each category as at @(((DateTime)Model.LastUpdated!).ToString("d MMMM yyyy HH:mm"))
+</p>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <h2 class="govuk-heading-m">
+                    Women
+                </h2>
+            </div>
+        </div>
+        @await Html.PartialAsync("_LeaderboardRunnerList", Model.Women)
+    </div>
+    <div class="govuk-grid-column-one-half">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <h2 class="govuk-heading-m">
+                    Men
+                </h2>
+            </div>
+        </div>
+        @await Html.PartialAsync("_LeaderboardRunnerList", Model.Men)
+    </div>
+</div>

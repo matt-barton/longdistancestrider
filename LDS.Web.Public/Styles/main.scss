@@ -1,0 +1,22 @@
+@import "../govuk-frontend/index";
+@import "./govuk-overrides";
+
+/* your custom styles here */
+.top-pad-5 {
+    padding-top: 5px;
+}
+
+.heading-no-margin {
+    margin-bottom: 0px;
+}
+
+.lds-leaderboard {
+    background-color: #f1f1f1;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 15px;
+}
+
+.test {
+    color: green;
+}
