@@ -181,6 +181,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LDS.Data\LDS.Data.csproj" />
+      <ProjectReference Include="..\LDS.Web.Shared\LDS.Web.Shared.csproj" />
     </ItemGroup>
 
 </Project>

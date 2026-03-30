@@ -1,8 +1,7 @@
 using GovUk.Frontend.AspNetCore;
 using LDS.Data;
 using LDS.Data.Configuration;
-using LDS.Data.Services;
-using LDS.Data.Services.Interfaces;
+using LDS.Web.Shared.Extensions;
 using LDS.Web.Admin;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,16 +22,12 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
-builder.Services.AddGovUkFrontend(options => options.Rebrand = true);
+//builder.Services.AddGovUkFrontend(options => options.Rebrand = true);
+builder.Services.AddGovUkFrontend();
 
 builder.Logging.AddConsole();
 
-builder.Services.AddTransient<IRunnerService, RunnerService>();
-builder.Services.AddTransient<IRaceService, RaceService>();
-builder.Services.AddTransient<IRaceEntryService, RaceEntryService>();
-builder.Services.AddTransient<IRaceParticipationService, RaceParticipationService>();
-builder.Services.AddTransient<ITotalMilesService, TotalMilesService>();
-builder.Services.AddTransient<IParametersService, ParametersService>();
+builder.AddLdsServices();
 
 var app = builder.Build();
 
