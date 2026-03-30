@@ -1,6 +1,6 @@
-﻿using LDS.Web.Shared.ViewModels;
+﻿using LDS.Web.Public.ViewModels;
 
-namespace LDS.Web.Shared.Extensions;
+namespace LDS.Web.Public.Extensions;
 
 public static class LeaderboardRunnerViewModelExtensions
 {

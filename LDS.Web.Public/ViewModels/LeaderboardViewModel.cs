@@ -1,4 +1,4 @@
-namespace LDS.Web.Shared.ViewModels;
+namespace LDS.Web.Public.ViewModels;
 
 public class LeaderboardViewModel
 {

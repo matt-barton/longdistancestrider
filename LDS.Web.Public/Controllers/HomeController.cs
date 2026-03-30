@@ -1,6 +1,6 @@
 using LDS.Data.Services.Interfaces;
-using LDS.Web.Shared.Extensions;
-using LDS.Web.Shared.ViewModels;
+using LDS.Web.Public.Extensions;
+using LDS.Web.Public.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDS.Web.Public.Controllers;
