@@ -1,21 +1,16 @@
-using LDS.Web.Admin.Models;
+using LDS.Data.Services.Interfaces;
 using LDS.Web.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace LDS.Web.Admin.Controllers
 {
     [Route("RunnerConsolidation")]
-    public class RunnerConsolidationController : Controller
+    public class RunnerConsolidationController(
+        IRunnerService runnerService,
+        IRaceParticipationService raceParticipationService,
+        IRaceEntryService raceEntryService) : Controller
     {
-
-        private LDSContext _ldsContext;
-
-        public RunnerConsolidationController(LDSContext ldsContext)
-        {
-            _ldsContext = ldsContext;
-        }
 
         [HttpGet]
         public IActionResult Index()
@@ -25,11 +20,12 @@ namespace LDS.Web.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index (RunnerConsolidationViewModel consolidation)
+        public async Task<IActionResult> Index(RunnerConsolidationViewModel consolidation)
         {
             if (consolidation.RunnerToKeepId == consolidation.RunnerToRemoveId)
             {
-                ModelState.AddModelError(nameof(consolidation.RunnerToRemove), "Runners to keep and remove must be different.");
+                ModelState.AddModelError(nameof(consolidation.RunnerToRemove),
+                    "Runners to keep and remove must be different.");
             }
 
             if (!ModelState.IsValid)
@@ -37,39 +33,28 @@ namespace LDS.Web.Admin.Controllers
                 return View(InitialiseViewModel(consolidation));
             }
 
-            var entriesToMove = _ldsContext.RacePartipation
-                .Where(r => r.RunnerId == consolidation.RunnerToRemoveId)
-                .ToList();
+            var entriesToMove = raceParticipationService.GetForRunner(consolidation.RunnerToRemoveId);
 
-            var sql = @"UPDATE [RaceEntry]
-                           SET RunnerId = @RunnerToKeepId
-                         WHERE RunnerId = @RunnerToRemoveId";
+            await raceEntryService.UpdateRunner(consolidation.RunnerToRemoveId, consolidation.RunnerToKeepId);
 
-            await _ldsContext.Database.ExecuteSqlRawAsync(
-                sql,
-                new SqlParameter("@RunnerToKeepId", consolidation.RunnerToKeepId),
-                new SqlParameter("@RunnerToRemoveId", consolidation.RunnerToRemoveId)
-            );
+            var runnerToKeep = runnerService.Get(consolidation.RunnerToKeepId);
+            if (runnerToKeep == null)
+            {
+                return BadRequest("Runner keep must be specified.");
+            }
 
-            var runnerToKeep = _ldsContext.Runners
-                .FirstOrDefault(r => r.Id == consolidation.RunnerToKeepId);
-
-            var runnerToRemove = _ldsContext.Runners
-                .FirstOrDefault(r => r.Id == consolidation.RunnerToRemoveId);
-
-            _ldsContext.Runners.Remove(runnerToRemove);
+            var runnerToRemove = runnerService.Get(consolidation.RunnerToRemoveId);
+            if (runnerToRemove == null)
+            {
+                return BadRequest("Runner keep must be specified.");
+            }
+            
+            runnerService.Delete(runnerToRemove);
 
             if (consolidation.CreateAlias)
             {
-                var alias = new RunnerAlias
-                {
-                    RunnerId = consolidation.RunnerToKeepId,
-                    Alias = runnerToRemove.FullName
-                };
-                _ldsContext.Add<RunnerAlias>(alias);
+                runnerService.CreateAlias(consolidation.RunnerToKeepId, runnerToRemove.FullName);
             }
-
-            _ldsContext.SaveChanges();
 
             var model = new RunnerConsolidationViewModel
             {
@@ -78,12 +63,15 @@ namespace LDS.Web.Admin.Controllers
                 KeptRunnerId = runnerToKeep.Id,
                 KeptRunnerName = runnerToKeep.FullName,
                 AliasCreated = consolidation.CreateAlias,
-                EntriesMoved = [.. entriesToMove.Select(e => new RunnerRaceEntryViewModel
-                {
-                    RaceName = e.RaceName,
-                    Date = e.Date,
-                    Miles = e.Miles
-                })]
+                EntriesMoved =
+                [
+                    .. entriesToMove.Select(e => new RunnerRaceEntryViewModel
+                    {
+                        RaceName = e.RaceName,
+                        Date = e.Date,
+                        Miles = e.Miles
+                    })
+                ]
             };
 
             return View(InitialiseViewModel(model));
@@ -91,9 +79,8 @@ namespace LDS.Web.Admin.Controllers
 
         private RunnerConsolidationViewModel InitialiseViewModel (RunnerConsolidationViewModel? model = null)
         {
-            var runners = _ldsContext.Runners
-                .OrderBy(r => r.LastName)
-                .ThenBy(r => r.FirstName)
+            var runners = runnerService
+                .GetAll()
                 .ToList();
 
             if (model == null)

@@ -1,20 +1,16 @@
-﻿using LDS.Web.Admin.Extensions;
-using LDS.Web.Admin.Models;
+﻿using LDS.Data.Services.Interfaces;
+using LDS.Web.Admin.Extensions;
 using LDS.Web.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDS.Web.Admin.Controllers;
 
-public class HomeController(LDSContext ldsContext) : Controller
+public class HomeController(ITotalMilesService totalMilesService, IParametersService parametersService) : Controller
 {
     // GET
     public IActionResult Index()
     {
-        var maleRunners = ldsContext.TotalMiles
-            .Where(r => r.Gender == "M")
-            .OrderByDescending(r => r.Miles)
-            .ThenBy(r => r.LastName)
-            .ThenBy(r => r.FirstName)
+        var maleRunners = totalMilesService.GetLeaderboard("M")
             .Take(3)
             .Select(r => new LeaderboardRunnerViewModel
             {
@@ -25,11 +21,7 @@ public class HomeController(LDSContext ldsContext) : Controller
             .ToList()
             .WithPositions();
             
-        var femaleRunners = ldsContext.TotalMiles
-            .Where(r => r.Gender == "F")
-            .OrderByDescending(r => r.Miles)
-            .ThenBy(r => r.LastName)
-            .ThenBy(r => r.FirstName)
+        var femaleRunners = totalMilesService.GetLeaderboard("F")
             .Take(3)
             .Select(r => new LeaderboardRunnerViewModel
             {
@@ -40,16 +32,14 @@ public class HomeController(LDSContext ldsContext) : Controller
             .ToList()
             .WithPositions();
 
-        var year = ldsContext.Parameters
-            .SingleOrDefault(p => p.Name == "CurrentYear");
+        var year = parametersService.GetCurrentYear();
             
-        var lastUpdated = ldsContext.Parameters
-            .SingleOrDefault(p => p.Name == "LastUpdated");
+        var lastUpdated = parametersService.GetLastUpdated();
 
         return View(new LeaderboardViewModel
         {
-            Year = year?.Value,
-            LastUpdated = lastUpdated?.Value == null ? null : DateTime.Parse(lastUpdated?.Value),
+            Year = year,
+            LastUpdated = lastUpdated,
             Women = femaleRunners,
             Men = maleRunners
         });

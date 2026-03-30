@@ -1,4 +1,5 @@
-﻿using LDS.Web.Admin.Models;
+﻿using LDS.Data;
+using LDS.Data.Services.Interfaces;
 using LDS.Web.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -7,24 +8,28 @@ using Microsoft.EntityFrameworkCore;
 namespace LDS.Web.Admin.Controllers;
 
 [Route("RaceEntry")]
-public class RaceEntryController(LDSContext ldsContext) : Controller
+public class RaceEntryController(
+    IRaceService raceService,
+    IRunnerService runnerService,
+    IRaceEntryService raceEntryService)
+    : Controller
 {
     [HttpGet("Edit/{raceId}/{runnerId}")]
     public IActionResult Edit(int raceId, int runnerId)
     {
-        var race = ldsContext.Races.FirstOrDefault(x => x.Id == raceId);
+        var race = raceService.Get(raceId);
         if (race == null)
         {
             return NotFound("Race not found");
         }
         
-        var runner = ldsContext.Runners.FirstOrDefault(x => x.Id == runnerId);
+        var runner = runnerService.Get(runnerId);
         if (runner == null)
         {
             return NotFound("Runner not found");
         }
         
-        var raceEntry = ldsContext.RaceEntries.FirstOrDefault(x => x.RaceId == raceId && x.RunnerId == runnerId);
+        var raceEntry = raceEntryService.Get(raceId, runnerId);
         if (raceEntry == null)
         {
             return NotFound("No race entry found for this runner/race");
@@ -48,19 +53,12 @@ public class RaceEntryController(LDSContext ldsContext) : Controller
             return View(raceEntry);
         }
 
-        const string sql = @"UPDATE [RaceEntry]
-                                SET Miles = @Miles
-                              WHERE RaceId = @RaceId
-                                AND RunnerId = @RunnerId";
-
-        await ldsContext.Database.ExecuteSqlRawAsync(
-            sql,
-            new SqlParameter("@RaceId", raceEntry.RaceId),
-            new SqlParameter("@RunnerId", raceEntry.RunnerId),
-            new SqlParameter("@Miles", raceEntry.Miles)
-        );
-
-        raceEntry.ChangesSaved = true;
+        if (raceEntry.RaceId == null || raceEntry.RunnerId == null)
+        {
+            return BadRequest("Race and Runner must be specified");
+        }
+        
+        raceEntry.ChangesSaved = await raceEntryService.UpdateMiles(raceEntry.RaceId.Value, raceEntry.RunnerId.Value, raceEntry.Miles);
 
         return View(raceEntry);
     }

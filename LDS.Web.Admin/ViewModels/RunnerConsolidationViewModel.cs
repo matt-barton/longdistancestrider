@@ -1,4 +1,4 @@
-using LDS.Web.Admin.Models;
+using LDS.Data.Models;
 
 namespace LDS.Web.Admin.ViewModels;
 

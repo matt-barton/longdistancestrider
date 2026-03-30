@@ -1,21 +1,14 @@
 using System.Text.RegularExpressions;
-using LDS.Web.Admin.Models;
+using LDS.Data;
+using LDS.Data.Models;
 using LDS.Web.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDS.Web.Admin.Controllers;
 
 [Route("RaceParticipation")]
-public class RaceParticipationController : Controller
+public class RaceParticipationController(LdsContext ldsContext) : Controller
 {
-
-    private LDSContext _ldsContext;
-
-    public RaceParticipationController(LDSContext ldsContext)
-    {
-        _ldsContext = ldsContext;
-    }
-
     [HttpGet]
     public IActionResult Index()
     {
@@ -75,13 +68,13 @@ public class RaceParticipationController : Controller
                     RaceId = raceId,
                     Miles = miles
                 };
-                var alreadyExists =_ldsContext.RaceEntries
+                var alreadyExists = ldsContext.RaceEntries
                     .Where(re => re.RunnerId == runnerId && re.RaceId == raceId)
                     .Count() > 0;
 
                 if (!alreadyExists)
                 {
-                    _ldsContext.Add<RaceEntry>(raceEntry);
+                    ldsContext.Add<RaceEntry>(raceEntry);
                 }
             }
             catch (Exception e)  
@@ -90,7 +83,7 @@ public class RaceParticipationController : Controller
             }
             finally
             {
-                _ldsContext.SaveChanges();
+                ldsContext.SaveChanges();
             }
         }
 
@@ -107,7 +100,7 @@ public class RaceParticipationController : Controller
     [HttpGet("ByRunner/{runnerId}")]
     public async Task<ActionResult<RaceParticipationByRunner>> GetByRunner (int runnerId)
     {
-        var raceParticipations = _ldsContext.RacePartipation
+        var raceParticipations = ldsContext.RacePartipation
             .Where(rp => rp.RunnerId == runnerId)
             .OrderBy(rp => rp.Date)
             .ToList();
@@ -138,7 +131,7 @@ public class RaceParticipationController : Controller
     [HttpGet("TotalMiles/{gender}")]
     public async Task<ActionResult<List<TotalMiles>>> GetTotalMiles (string gender)
     {
-        var x = _ldsContext.TotalMiles
+        var x = ldsContext.TotalMiles
             .Where(tm => tm.Gender == gender)
             .OrderByDescending(tm => tm.Miles)
             .ToList();
@@ -148,7 +141,7 @@ public class RaceParticipationController : Controller
 
     private RaceParticipationByRace GetRaceParticipationByRace (int raceId)
     {
-        var raceParticipations = _ldsContext.RacePartipation
+        var raceParticipations = ldsContext.RacePartipation
             .Where(rp => rp.RaceId == raceId)
             .OrderBy(rp => rp.Date)
             .ToList();
@@ -178,7 +171,7 @@ public class RaceParticipationController : Controller
 
     private int FindOrCreateRace(string name, DateOnly? date)
     {
-        var race = (from r in _ldsContext.Races
+        var race = (from r in ldsContext.Races
             where r.Name == name && r.Date == date
             select r).SingleOrDefault();
 
@@ -190,8 +183,8 @@ public class RaceParticipationController : Controller
                 Date = date
             };
 
-            _ldsContext.Add<Race>(newRace);
-            _ldsContext.SaveChanges();
+            ldsContext.Add<Race>(newRace);
+            ldsContext.SaveChanges();
             race = newRace;
         }
         return race.Id;
@@ -250,13 +243,13 @@ public class RaceParticipationController : Controller
         var lastName = nameParts.LastOrDefault();
         var firstName = string.Join(" ", nameParts.Take(nameParts.Length-1));
 
-        var runner = (from r in _ldsContext.Runners
+        var runner = (from r in ldsContext.Runners
             where r.FirstName == firstName && r.LastName == lastName
             select r).SingleOrDefault();
 
         if (runner == null)
         {
-            int? runnerId = (from a in _ldsContext.RunnerAliases
+            int? runnerId = (from a in ldsContext.RunnerAliases
                 where a.Alias == fullname
                 select a.RunnerId).SingleOrDefault();
                 
@@ -271,8 +264,8 @@ public class RaceParticipationController : Controller
                 LastName = lastName,
                 Gender = String.IsNullOrEmpty(gender) ? "" : gender
             };
-            _ldsContext.Add<Runner>(newRunner);
-            _ldsContext.SaveChanges();
+            ldsContext.Add<Runner>(newRunner);
+            ldsContext.SaveChanges();
             runner = newRunner;
         }
                           

@@ -1,24 +1,18 @@
-using LDS.Web.Admin.Models;
+using LDS.Data;
+using LDS.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDS.Web.Admin.Controllers.api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RaceEntryController : ControllerBase
+    public class RaceEntryController(LdsContext ldsContext) : ControllerBase
     {
-        private LDSContext _ldsContext;
-
-        public RaceEntryController(LDSContext ldsContext)
-        {
-            _ldsContext = ldsContext;
-        }
-
         // GET: api/<RaceEntryController>
         [HttpGet]
         public IEnumerable<RaceEntry> Get()
         {
-            return _ldsContext.RaceEntries.OrderByDescending(r => r.RaceId);
+            return ldsContext.RaceEntries.OrderByDescending(r => r.RaceId);
         }
     }
 }

@@ -1,39 +1,28 @@
-using LDS.Web.Admin.Models;
+using LDS.Data.Services.Interfaces;
 using LDS.Web.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDS.Web.Admin.Controllers
 {
     [Route("Race")]
-    public class RaceController : Controller
+    public class RaceController(IRaceService raceService, IRaceParticipationService raceParticipationService) : Controller
     {
-        private LDSContext _ldsContext;
-
-        public RaceController(LDSContext ldsContext)
-        {
-            _ldsContext = ldsContext;
-        }
-
         [HttpGet("{Id}")]
-        public IActionResult Index(int? Id)
+        public IActionResult Index(int? id)
         {
-            if (!Id.HasValue)
+            if (!id.HasValue)
             {
                 return new NotFoundResult();    
             }
 
-            var race = _ldsContext.Races.Where(r => r.Id == Id).FirstOrDefault();
+            var race = raceService.Get(id.Value);
 
             if (race == null)
             {
                 return new NotFoundResult();    
             }
 
-            var entries = _ldsContext.RacePartipation
-                .Where(r => r.RaceId == Id)
-                .OrderByDescending(r => r.Miles)
-                .ThenBy(r => r.RunnerName)
-                .ToList();
+            var entries = raceParticipationService.GetForRace(race.Id);
 
             var model = new RaceViewModel
             {

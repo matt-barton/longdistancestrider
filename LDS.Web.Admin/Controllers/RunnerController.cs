@@ -1,42 +1,34 @@
+using LDS.Data.Services.Interfaces;
 using LDS.Web.Admin.Extensions;
-using LDS.Web.Admin.Models;
 using LDS.Web.Admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 
 namespace LDS.Web.Admin.Controllers
 {
     [Route("Runner")]
-    public class RunnerController : Controller
+    public class RunnerController(
+        IRunnerService runnerService,
+        IRaceParticipationService raceParticipationService,
+        ITotalMilesService totalMilesService,
+        IParametersService parametersService) : Controller
     {
-        private LDSContext _ldsContext;
-
-        public RunnerController(LDSContext ldsContext)
-        {
-            _ldsContext = ldsContext;
-        }
-
         [HttpGet("{Id}")]
-        public IActionResult Index(int? Id)
+        public IActionResult Index(int? id)
         {
-            if (!Id.HasValue)
+            if (!id.HasValue)
             {
                 return new NotFoundResult();    
             }
 
-            var runner = _ldsContext.Runners.Where(r => r.Id == Id).FirstOrDefault();
-
+            var runner = runnerService.Get(id.Value);
+            
             if (runner == null)
             {
                 return new NotFoundResult();    
             }
 
-            var races = _ldsContext.RacePartipation
-                .Where(r => r.RunnerId == Id)
-                .OrderBy(r => r.Date)
-                .ToList();
-
+            var races = raceParticipationService.GetForRunner(runner.Id);
+            
             var model = new RunnerViewModel
             {
                 DisplayName = runner.FullName,
@@ -54,15 +46,14 @@ namespace LDS.Web.Admin.Controllers
         }
 
         [HttpGet("Edit/{Id}")]
-        public IActionResult Edit(int? Id)
+        public IActionResult Edit(int? id)
         {
-            if (!Id.HasValue)
+            if (!id.HasValue)
             {
                 return new NotFoundResult();    
             }
 
-            var runner = _ldsContext.Runners
-                .FirstOrDefault(r => r.Id == Id);
+            var runner = runnerService.Get(id.Value);
 
             if (runner == null)
             {
@@ -72,7 +63,7 @@ namespace LDS.Web.Admin.Controllers
             return View(new RunnerViewModel(runner));
         }
 
-        [HttpPost("Edit/{Id}")]
+        [HttpPost("Edit/{runner}")]
         public async Task<IActionResult> Edit (RunnerViewModel runner)
         {
             if (!ModelState.IsValid)
@@ -80,21 +71,12 @@ namespace LDS.Web.Admin.Controllers
                 return View(runner);
             }
 
-            var sql = @"UPDATE [Runner]
-                        SET FirstName = @FirstName,
-                            LastName = @LastName,
-                            Gender = @Gender
-                        WHERE Id = @Id";
-
-            await _ldsContext.Database.ExecuteSqlRawAsync(
-                sql,
-                new SqlParameter("@FirstName", runner.FirstName),
-                new SqlParameter("@LastName", runner.LastName),
-                new SqlParameter("@Gender", runner.Gender),
-                new SqlParameter("@Id", runner.Id)
-            );
-
-            runner.ChangesSaved = true;
+            if (runner.FirstName == null || runner.LastName == null ||  runner.Gender == null)
+            {
+                return View(runner);    
+            }
+            
+            runner.ChangesSaved = await runnerService.Update(runner.Id, runner.FirstName, runner.LastName, runner.Gender);;
 
             return View(runner);
         }
@@ -102,9 +84,7 @@ namespace LDS.Web.Admin.Controllers
         [HttpGet("List")]
         public IActionResult List ()
         {
-            var runners = _ldsContext.Runners
-                .OrderBy(r => r.LastName)
-                .ThenBy(r => r.FirstName)
+            var runners = runnerService.GetAll()
                 .Select(r => new RunnerViewModel
                 {
                     DisplayName = r.FullName,
@@ -119,10 +99,7 @@ namespace LDS.Web.Admin.Controllers
         [HttpGet("List/Gender")]
         public IActionResult ListGender ()
         {
-            var runners = _ldsContext.Runners
-                .Where(r => r.Gender == null || String.IsNullOrEmpty(r.Gender))
-                .OrderBy(r => r.LastName)
-                .ThenBy(r => r.FirstName)
+            var runners = runnerService.GetAllMissingGender()
                 .Select(r => new RunnerViewModel
                 {
                     DisplayName = r.FullName,
@@ -137,11 +114,7 @@ namespace LDS.Web.Admin.Controllers
         [HttpGet("Leaderboard")]
         public IActionResult Leaderboard ()
         {
-            var maleRunners = _ldsContext.TotalMiles
-                .Where(r => r.Gender == "M")
-                .OrderByDescending(r => r.Miles)
-                .ThenBy(r => r.LastName)
-                .ThenBy(r => r.FirstName)
+            var maleRunners = totalMilesService.GetLeaderboard("M")
                 .Select(r => new LeaderboardRunnerViewModel
                 {
                     Name = r.FirstName + " " + r.LastName,
@@ -151,11 +124,7 @@ namespace LDS.Web.Admin.Controllers
                 .ToList()
                 .WithPositions();
             
-            var femaleRunners = _ldsContext.TotalMiles
-                .Where(r => r.Gender == "F")
-                .OrderByDescending(r => r.Miles)
-                .ThenBy(r => r.LastName)
-                .ThenBy(r => r.FirstName)
+            var femaleRunners = totalMilesService.GetLeaderboard("F")
                 .Select(r => new LeaderboardRunnerViewModel
                 {
                     Name = r.FirstName + " " + r.LastName,
@@ -165,16 +134,14 @@ namespace LDS.Web.Admin.Controllers
                 .ToList()
                 .WithPositions();
 
-            var year = _ldsContext.Parameters
-                .SingleOrDefault(p => p.Name == "CurrentYear");
+            var year = parametersService.GetCurrentYear();
             
-            var lastUpdated = _ldsContext.Parameters
-                .SingleOrDefault(p => p.Name == "LastUpdated");
+            var lastUpdated = parametersService.GetLastUpdated();
 
             return View(new LeaderboardViewModel
             {
-                Year = year?.Value,
-                LastUpdated = lastUpdated?.Value == null ? null : DateTime.Parse(lastUpdated?.Value),
+                Year = year,
+                LastUpdated = lastUpdated,
                 Women = femaleRunners,
                 Men = maleRunners
             });
