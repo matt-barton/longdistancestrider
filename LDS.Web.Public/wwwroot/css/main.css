@@ -1400,7 +1400,7 @@
   background-color: #f3f2f1;
 }
 .govuk-template--rebranded {
-  background-color: #f4f8fb;
+  background-color: #f5faf4;
 }
 
 .govuk-template {
@@ -2371,13 +2371,13 @@
 
 .govuk-button--inverse {
   background-color: #ffffff;
-  box-shadow: 0 2px 0 #144e81;
+  box-shadow: 0 2px 0 #1f6a16;
 }
 .govuk-button--inverse, .govuk-button--inverse:link, .govuk-button--inverse:visited, .govuk-button--inverse:active, .govuk-button--inverse:hover {
-  color: #1d70b8;
+  color: #2d971f;
 }
 .govuk-button--inverse:hover {
-  background-color: #e8f1f8;
+  background-color: #eaf5e9;
 }
 .govuk-button--inverse:hover[disabled] {
   background-color: #ffffff;
@@ -3066,7 +3066,7 @@
   background-color: #f3f2f1;
 }
 .govuk-template--rebranded .govuk-cookie-banner {
-  background-color: #f4f8fb;
+  background-color: #f5faf4;
 }
 
 .govuk-cookie-banner[hidden] {
@@ -3966,12 +3966,12 @@
   }
 }
 .govuk-footer {
-  border-top: 10px solid #1d70b8;
+  border-top: 10px solid #2d971f;
   color: #0b0c0c;
   background: #f3f2f1;
 }
 .govuk-template--rebranded .govuk-footer {
-  background: #f4f8fb;
+  background: #f5faf4;
 }
 
 .govuk-footer__crown {
@@ -4048,7 +4048,7 @@
   border-bottom-color: #b1b4b6;
 }
 .govuk-template--rebranded .govuk-footer__section-break {
-  border-bottom-color: #8eb8dc;
+  border-bottom-color: #96cb8f;
 }
 
 .govuk-footer__meta {
@@ -4163,7 +4163,7 @@
   border-bottom-color: #b1b4b6;
 }
 .govuk-template--rebranded .govuk-footer__heading {
-  border-bottom-color: #8eb8dc;
+  border-bottom-color: #96cb8f;
 }
 
 .govuk-footer__navigation::after {
@@ -4248,7 +4248,7 @@
   background: #0b0c0c;
 }
 .govuk-template--rebranded .govuk-header {
-  background: #1d70b8;
+  background: #2d971f;
 }
 .govuk-header {
   color: #ffffff;
@@ -4262,7 +4262,7 @@
 
 .govuk-header__container--full-width {
   padding: 0 15px;
-  border-color: #1d70b8;
+  border-color: #2d971f;
 }
 .govuk-header__container--full-width .govuk-header__menu-button {
   right: 15px;
@@ -4277,7 +4277,7 @@
   position: relative;
   margin-bottom: -10px;
   padding-top: 10px;
-  border-bottom: 10px solid #1d70b8;
+  border-bottom: 10px solid #2d971f;
 }
 .govuk-template--rebranded .govuk-header__container {
   margin-bottom: 0;
@@ -4286,7 +4286,7 @@
 }
 
 .govuk-header--full-width-border {
-  border-bottom-color: #1d70b8;
+  border-bottom-color: #2d971f;
 }
 .govuk-header--full-width-border .govuk-header__container {
   border-bottom-color: transparent;
@@ -4457,7 +4457,7 @@
   word-spacing: 0;
 }
 .govuk-template--rebranded .govuk-header__link--homepage:not(:focus) {
-  background-color: #1d70b8;
+  background-color: #2d971f;
 }
 
 .govuk-header__service-name {
@@ -4727,7 +4727,7 @@
 }
 @media print {
   .govuk-header__navigation-item--active a {
-    color: #1d70b8;
+    color: #2d971f;
   }
 }
 .govuk-header__navigation-item--active a:focus {
@@ -4869,8 +4869,8 @@
   }
 }
 .govuk-notification-banner {
-  border: 5px solid #1d70b8;
-  background-color: #1d70b8;
+  border: 5px solid #2d971f;
+  background-color: #2d971f;
 }
 .govuk-notification-banner:focus {
   outline: 3px solid #ffdd00;
@@ -5854,13 +5854,13 @@
   border-bottom-color: #b1b4b6;
 }
 .govuk-template--rebranded .govuk-service-navigation {
-  border-bottom-color: #8eb8dc;
+  border-bottom-color: #96cb8f;
 }
 .govuk-service-navigation {
   background-color: #f3f2f1;
 }
 .govuk-template--rebranded .govuk-service-navigation {
-  background-color: #f4f8fb;
+  background-color: #f5faf4;
 }
 
 .govuk-service-navigation__container {
@@ -6174,12 +6174,12 @@
 .govuk-template--rebranded .govuk-service-navigation--inverse {
   border-bottom: none;
   color: #ffffff;
-  background-color: #1d70b8;
+  background-color: #2d971f;
 }
 .govuk-template--rebranded .govuk-service-navigation--inverse .govuk-width-container {
   border-width: 1px 0;
   border-style: solid;
-  border-color: #8eb8dc;
+  border-color: #96cb8f;
 }
 .govuk-template--rebranded .govuk-service-navigation--inverse .govuk-service-navigation__container {
   margin-top: -1px;
@@ -8625,6 +8625,10 @@
 }
 
 .govuk-footer__copyright-logo {
+  display: none !important;
+}
+
+.govuk-header__logotype {
   display: none !important;
 }
 

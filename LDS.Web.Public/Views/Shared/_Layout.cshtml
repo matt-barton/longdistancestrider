@@ -10,10 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" sizes="48x48" href="/assets/rebrand/images/favicon.ico">
-    <link rel="icon" sizes="any" href="/assets/rebrand/images/favicon.svg" type="image/svg+xml">
-    <link rel="mask-icon" href="/assets/rebrand/images/govuk-icon-mask.svg" color="#1d70b8">
-    <link rel="apple-touch-icon" href="/assets/rebrand/images/govuk-icon-180.png">
+    <link rel="icon" sizes="any" href="/assets/images/Striders-trans-400-90x90.png" type="image/png">
     <link rel="manifest" href="/assets/rebrand/manifest.json">
     <link href="/css/main.css" rel="stylesheet">
     
@@ -21,10 +18,15 @@
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@
-@section Header {
-    <govuk-header home-page-url="https://gov.uk/" />
+@section HeadIcons {
+    <link rel="icon" href="/assets/images/Striders-trans-400-90x90.png" type="image/png">
+}
 
-    <govuk-service-navigation service-name="Long Distance Strider" service-url="/">
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section Header {
+    <govuk-header product-name="Steel City Striders" />
+
+    <govuk-service-navigation service-name="Long Distance Strider" service-url="https://longdistancestrider.xyz">
         <govuk-service-navigation-nav>
             <govuk-service-navigation-nav-item href="/Leaderboard/M">Men</govuk-service-navigation-nav-item>
             <govuk-service-navigation-nav-item href="/Leaderboard/F">Women</govuk-service-navigation-nav-item>
