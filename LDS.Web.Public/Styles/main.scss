@@ -22,3 +22,12 @@ $govuk-brand-colour: #2d971f;
 .test {
     color: green;
 }
+
+.no-wrap {
+    text-wrap: nowrap;
+}
+
+.lds-table-cell {
+    border-bottom: 0;
+    padding-bottom: 5px;
+}

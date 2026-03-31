@@ -2,6 +2,6 @@
 
 public interface IParametersService
 {
-    public string GetCurrentYear();
+    public int GetCurrentYear();
     public DateTime GetLastUpdated();
 }

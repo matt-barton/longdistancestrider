@@ -4,12 +4,11 @@ namespace LDS.Data.Services;
 
 public class ParametersService (LdsContext ldsContext) : IParametersService
 {
-    public string GetCurrentYear()
+    public int GetCurrentYear()
     {
-        return ldsContext.Parameters
+        return int.Parse(ldsContext.Parameters
             .SingleOrDefault(p => p.Name == "CurrentYear")!
-            .Value
-            .ToString();
+            .Value);
     }
 
     public DateTime GetLastUpdated()

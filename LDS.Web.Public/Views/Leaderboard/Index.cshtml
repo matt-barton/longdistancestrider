@@ -1,0 +1,26 @@
+﻿@using LDS.Web.Public.Extensions
+@model LDS.Web.Public.ViewModels.LeaderboardGenderViewModel
+
+@{
+    ViewBag.Title = "Long Distance Strider - Leaderboard";
+    Layout = "_Layout";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-m heading-no-margin">
+            @Model.Year Current Standings - @(Model.Gender.ToGenderDisplay())
+        </h2>
+        <span class="govuk-caption-m">
+            Last updated: @(((DateTime)Model.LastUpdated).ToString("d MMMM yyyy HH:mm"))
+        </span>
+    </div>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        @await Html.PartialAsync("_LeaderboardRunnerList", Model.Runners)
+    </div>
+</div>

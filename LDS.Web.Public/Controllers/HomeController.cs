@@ -38,7 +38,7 @@ public class HomeController(ITotalMilesService totalMilesService, IParametersSer
 
         return View(new LeaderboardViewModel
         {
-            Year = year,
+            Year = year.ToString(),
             LastUpdated = lastUpdated,
             Women = femaleRunners,
             Men = maleRunners

@@ -12,7 +12,15 @@ public class RaceParticipationService(LdsContext ldsContext) : IRaceParticipatio
             .OrderByDescending(r => r.Date)
             .ToList();
     }
-    
+    public IEnumerable<RaceParticipation> GetForRunner(int runnerId, int year)
+    {
+        return ldsContext.RacePartipation
+            .Where(r => r.RunnerId == runnerId)
+            .Where(r => r.Date.Year == year)
+            .OrderByDescending(r => r.Date)
+            .ToList();
+    }
+
     public IEnumerable<RaceParticipation> GetForRace(int raceId)
     {
         return ldsContext.RacePartipation
