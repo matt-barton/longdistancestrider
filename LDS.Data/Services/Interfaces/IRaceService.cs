@@ -5,5 +5,6 @@ namespace LDS.Data.Services.Interfaces;
 public interface IRaceService
 {
     public Race? Get(int id);
+    public IEnumerable<Race> GetAll (int year);
 
 }

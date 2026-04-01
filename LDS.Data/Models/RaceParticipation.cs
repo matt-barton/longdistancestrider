@@ -9,14 +9,10 @@ public class RaceParticipation
 {
 
     public int RaceId { get; set; }
-
     public int RunnerId { get; set; }
-
     public string? RaceName { get; set; }
-
     public string? RunnerName { get; set; }
-    
+    public string? RunnerLastName { get; set; }
     public DateOnly Date { get; set; }
-
     public decimal Miles {get; set; }
 }

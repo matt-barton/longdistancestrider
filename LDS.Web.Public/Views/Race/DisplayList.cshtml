@@ -1,0 +1,35 @@
+﻿@model LDS.Web.Public.ViewModels.RaceListViewModel
+
+@{
+    ViewBag.Title = "Long Distance Strider - " + Model.Year + " races";
+    Layout = "_Layout";
+}
+
+<h2 class="govuk-heading-m">@(Model.Year + " races")</h2>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Race</th>
+                <th scope="col" class="govuk-table__header">Date</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            @foreach (var race in Model.Races)
+            {
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell lds-table-cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/Race/@race.Id">
+                            @race.Name
+                        </a>
+                    </td>
+                    <td class="govuk-table__cell lds-table-cell">
+                        @race.Date.ToString("dd MMMM yyyy")
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

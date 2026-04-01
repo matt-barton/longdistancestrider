@@ -1,0 +1,38 @@
+﻿@model LDS.Web.Public.ViewModels.RaceViewModel
+
+@{
+    ViewBag.Title = $"Long Distance Strider - {Model.Name} ({Model.Date.ToString("dd/MM/yyyy")})";
+    Layout = "_Layout";
+}
+
+<h2 class="govuk-heading-m">@Model.Name</h2>
+<span class="govuk-caption-m">@Model.Date.ToString("d MMMM yyyy")</span>
+
+<hr class="govuk-section-break govuk-section-break--m">
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Runner</th>
+                <th scope="col" class="govuk-table__header">Miles</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            @foreach (var runner in Model.Runners)
+            {
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell lds-table-cell">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/Race/@runner.Id">
+                            @runner.Name
+                        </a>
+                    </td>
+                    <td class="govuk-table__cell lds-table-cell">
+                        @runner.Miles.ToString("0.###")
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
