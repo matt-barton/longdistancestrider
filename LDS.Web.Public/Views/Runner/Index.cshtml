@@ -4,19 +4,15 @@
 
 @model LDS.Web.Public.ViewModels.RunnerViewModel;
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
-        <h1 class="govuk-heading-m heading-no-margin">@Model.DisplayName</h1>
-        <span class="govuk-caption-m">
-            @Model.Year: @Model.RaceEntries!.Count Races, @Model.TotalMiles?.ToString("0.###") miles 
-        </span>
+<p class="unbreaking">
+    <span class="govuk-heading-m">@Model.DisplayName</span>
+    <span class="govuk-caption-m">(@(string.IsNullOrEmpty(Model.Gender) ? "Gender not set" : Model.Gender))</span>
+</p>
+<span class="govuk-caption-m">
+    @Model.Year: @Model.RaceEntries!.Count Races, @Model.TotalMiles?.ToString("0.###") miles 
+</span>
 
-    </div>
-    <div class="govuk-grid-column-one-quarter">
-        <span class="govuk-caption-m top-pad-5">(@(String.IsNullOrEmpty(Model.Gender) ? "Gender not set" : Model.Gender))</span>
-    </div>
-</div>
-
+<hr class="govuk-section-break govuk-section-break--m">
 
 @await Html.PartialAsync("_RunnerRaceParticipation", Model.RaceEntries)
 

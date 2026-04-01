@@ -19,10 +19,6 @@ $govuk-brand-colour: #2d971f;
     padding: 15px;
 }
 
-.test {
-    color: green;
-}
-
 .no-wrap {
     text-wrap: nowrap;
 }
@@ -30,4 +26,16 @@ $govuk-brand-colour: #2d971f;
 .lds-table-cell {
     border-bottom: 0;
     padding-bottom: 5px;
+}
+
+.lds-table-row:nth-child(odd) {
+    background-color: #f5faf4;
+}
+
+.lds-table-row:last-child {
+    border-bottom: 1px solid #b1b4b6;
+}
+
+p.unbreaking > span {
+    display: inline-block;
 }

@@ -6,7 +6,7 @@
 }
 
 <h2 class="govuk-heading-m">@Model.Name</h2>
-<span class="govuk-caption-m">@Model.Date.ToString("d MMMM yyyy")</span>
+<span class="govuk-caption-m">@Model.Date.ToString("d MMMM yyyy"), @(Model.Runners.Count()) runners </span>
 
 <hr class="govuk-section-break govuk-section-break--m">
 
@@ -22,9 +22,9 @@
             <tbody class="govuk-table__body">
             @foreach (var runner in Model.Runners)
             {
-                <tr class="govuk-table__row">
+                <tr class="govuk-table__row lds-table-row">
                     <td class="govuk-table__cell lds-table-cell">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/Race/@runner.Id">
+                        <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@runner.Id">
                             @runner.Name
                         </a>
                     </td>
