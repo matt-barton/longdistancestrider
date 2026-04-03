@@ -9,7 +9,7 @@ public class RaceParticipationService(LdsContext ldsContext) : IRaceParticipatio
     {
         return ldsContext.RacePartipation
             .Where(r => r.RunnerId == runnerId)
-            .OrderByDescending(r => r.Date)
+            .OrderBy(r => r.Date)
             .ToList();
     }
     public IEnumerable<RaceParticipation> GetForRunner(int runnerId, int year)
@@ -17,7 +17,7 @@ public class RaceParticipationService(LdsContext ldsContext) : IRaceParticipatio
         return ldsContext.RacePartipation
             .Where(r => r.RunnerId == runnerId)
             .Where(r => r.Date.Year == year)
-            .OrderByDescending(r => r.Date)
+            .OrderBy(r => r.Date)
             .ToList();
     }
 

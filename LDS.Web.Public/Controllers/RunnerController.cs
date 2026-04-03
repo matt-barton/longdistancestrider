@@ -11,8 +11,8 @@ namespace LDS.Web.Public.Controllers
         ITotalMilesService totalMilesService,
         IParametersService parametersService) : Controller
     {
-        [HttpGet("{Id}")]
-        public IActionResult Index(int? id)
+        [HttpGet("{Id:int?}/{displayYear:int?}")]
+        public IActionResult Index(int? id, int? displayYear)
         {
             if (!id.HasValue)
             {
@@ -26,16 +26,26 @@ namespace LDS.Web.Public.Controllers
                 return new NotFoundResult();    
             }
 
-            var year = parametersService.GetCurrentYear();
+            var currentYear = parametersService.GetCurrentYear();
+
+            displayYear ??= currentYear;
             
-            var races = raceParticipationService.GetForRunner(runner.Id, year);
+            var races = raceParticipationService.GetForRunner(runner.Id, displayYear.Value);
             
+            var firstYear = parametersService.GetFirstYear();
+
             var model = new RunnerViewModel
             {
                 DisplayName = runner.FullName,
                 Id = runner.Id,
                 Gender = runner.Gender,
-                Year = year.ToString(),
+                Year = displayYear.Value,
+                PreviousYear = firstYear < displayYear
+                    ? displayYear - 1
+                    : null,
+                NextYear = displayYear < currentYear
+                    ? displayYear + 1
+                    : null,
                 RaceEntries = races.Select(re => new RunnerRaceEntryViewModel()
                 {
                     RaceName = re.RaceName,

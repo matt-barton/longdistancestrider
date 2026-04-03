@@ -4,6 +4,29 @@
 
 @model LDS.Web.Public.ViewModels.RunnerViewModel;
 
+@section YearsNavigation {
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full top-pad-10">
+            @if (Model.PreviousYear != null)
+            {
+                <span class="left-nav">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@Model.Id/@Model.PreviousYear">
+                        &lt; @Model.PreviousYear
+                    </a>
+                </span>
+            }
+            @if (Model.NextYear != null)
+            {
+                <span class="right-nav">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@Model.Id/@Model.NextYear">
+                        @Model.NextYear &gt;
+                    </a>
+                </span>
+            }
+        </div>
+    </div>
+}
+
 <p class="unbreaking">
     <span class="govuk-heading-m">@Model.DisplayName</span>
     <span class="govuk-caption-m">(@(string.IsNullOrEmpty(Model.Gender) ? "Gender not set" : Model.Gender))</span>

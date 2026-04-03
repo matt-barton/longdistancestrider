@@ -9,7 +9,9 @@ public class RunnerViewModel
     public string? LastName { get; set; }
     public string? DisplayName { get; set; }
     public string? Gender { get; set; }
-    public string Year { get; set; }
+    public int Year { get; set; }
+    public int? PreviousYear { get; set; }
+    public int? NextYear { get; set; }
     public List<RunnerRaceEntryViewModel>? RaceEntries { get; set; }
     public decimal? TotalMiles
     {
