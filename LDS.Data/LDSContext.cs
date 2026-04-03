@@ -12,6 +12,7 @@ public class LdsContext : DbContext
     public DbSet<RaceEntry> RaceEntries { get; set; }
     public DbSet<RaceParticipation> RacePartipation { get; set; }
     public DbSet<TotalMiles> TotalMiles { get; set; }
+    public DbSet<TotalMiles2025> TotalMiles2025 { get; set; }
     public DbSet<RunnerAlias> RunnerAliases { get; set; }
     public DbSet<Parameter> Parameters { get; set; }
     

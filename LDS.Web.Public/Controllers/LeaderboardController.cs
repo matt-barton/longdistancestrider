@@ -1,4 +1,5 @@
-﻿using LDS.Data.Services.Interfaces;
+﻿using LDS.Data.Models;
+using LDS.Data.Services.Interfaces;
 using LDS.Web.Public.Extensions;
 using LDS.Web.Public.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -6,14 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 namespace LDS.Web.Public.Controllers;
 
 [Route("Leaderboard")]
-public class LeaderboardController (ITotalMilesService totalMilesService, IParametersService parametersService) : Controller
+public class LeaderboardController (ITotalMilesService totalMilesService, IParametersService parametersService, IRaceParticipationService raceParticipationService) : Controller
 {
     // GET
-    [HttpGet("{gender}")]
-    public IActionResult Index(string gender)
+    [HttpGet("{gender}/{displayYear:int?}")]
+    public IActionResult Index(string gender, int? displayYear)
     {
-        var runners = totalMilesService.GetLeaderboard(gender)
-            .Select(r => new LeaderboardRunnerViewModel
+        var currentYear = parametersService.GetCurrentYear();
+
+        displayYear ??= currentYear;
+        
+        IQueryable<TotalMilesBase> queryable;
+        switch (displayYear)
+        {
+            case 2026: queryable = totalMilesService.GetLeaderboard(gender); break;
+            case 2025: queryable = totalMilesService.GetLeaderboard2025(gender); break;
+            default: return NotFound("Unknown year " + displayYear);
+        }
+
+        var runners = queryable.Select(r => new LeaderboardRunnerViewModel
             {
                 Name = r.FirstName + " " + r.LastName,
                 Id = r.RunnerId,
@@ -21,17 +33,27 @@ public class LeaderboardController (ITotalMilesService totalMilesService, IParam
             })
             .ToList()
             .WithPositions();
-            
-        var year = parametersService.GetCurrentYear();
-            
+
+        var firstYear = parametersService.GetFirstYear();
         var lastUpdated = parametersService.GetLastUpdated();
 
         return View(new LeaderboardGenderViewModel
         {
             Gender = gender,
-            Year = year.ToString(),
-            LastUpdated = lastUpdated,
+            Year = displayYear.Value,
+            PreviousYear = firstYear < displayYear
+                ? displayYear - 1
+                : null,
+            NextYear = displayYear < currentYear
+                ? displayYear + 1
+                : null,
+            StandingsType = displayYear == currentYear
+                ? "Current"
+                : "Final",
+            LastUpdated = displayYear == currentYear
+                ? lastUpdated
+                : null,
             Runners = runners
         });
     }
-}
+} 

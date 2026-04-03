@@ -35,10 +35,13 @@
     </govuk-service-navigation>
 }
 
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section BeforeContent {
+    @await RenderSectionAsync("YearsNavigation", false)
+}
+
 <div class="govuk-width-container">
-    <main class="govuk-main-wrapper">
-        @RenderBody()
-    </main>
+    @RenderBody()
 </div>
 
 @* ReSharper disable once Razor.SectionNotResolved *@

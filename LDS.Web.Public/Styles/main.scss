@@ -3,9 +3,12 @@ $govuk-brand-colour: #2d971f;
 @import "../govuk-frontend/index";
 @import "./govuk-overrides";
 
-/* your custom styles here */
 .top-pad-5 {
     padding-top: 5px;
+}
+
+.top-pad-10 {
+    padding-top: 10px;
 }
 
 .heading-no-margin {
@@ -38,4 +41,14 @@ $govuk-brand-colour: #2d971f;
 
 p.unbreaking > span {
     display: inline-block;
+}
+
+.left-nav {
+    display: block;
+    text-align: left;    
+}
+
+.right-nav {
+    display: block;
+    text-align: right;
 }

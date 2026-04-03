@@ -8,8 +8,8 @@ public static class StringExtensions
     {
         return genderCode switch
         {
-            "M" => "Male",
-            "F" => "Female",
+            "M" => "Men",
+            "F" => "Women",
             _ => "Unknown"
         };
     }

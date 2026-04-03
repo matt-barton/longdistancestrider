@@ -6,13 +6,43 @@
     Layout = "_Layout";
 }
 
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section YearsNavigation {
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds top-pad-10">
+            @if (Model.PreviousYear != null)
+            {
+                <span class="left-nav">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/Leaderboard/@Model.Gender/@Model.PreviousYear">
+                        &lt; @Model.PreviousYear
+                    </a>
+                </span>
+            }
+            @if (Model.NextYear != null)
+            {
+                <span class="right-nav">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/Leaderboard/@Model.Gender/@Model.NextYear">
+                        @Model.NextYear &gt;
+                    </a>
+                </span>
+            }
+        </div>
+    </div>
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h2 class="govuk-heading-m heading-no-margin">
-            @Model.Year Current Standings - @(Model.Gender.ToGenderDisplay())
+            @Model.Year @Model.StandingsType Standings - @(Model.Gender.ToGenderDisplay())
         </h2>
+        @if (Model.LastUpdated != null)
+        {
+            <span class="govuk-caption-m">
+                Last updated: @(((DateTime)Model.LastUpdated).ToString("d MMMM yyyy HH:mm"))
+            </span>
+        }
         <span class="govuk-caption-m">
-            Last updated: @(((DateTime)Model.LastUpdated).ToString("d MMMM yyyy HH:mm"))
+            @Model.Runners!.Count() runners
         </span>
     </div>
 </div>
