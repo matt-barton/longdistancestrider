@@ -7,19 +7,29 @@ namespace LDS.Web.Public.Controllers;
 [Route("/Race")]
 public class RaceController (IRaceService raceService, IParametersService parametersService, IRaceParticipationService raceParticipationService) : Controller
 {
-    [HttpGet("All")]
-    public IActionResult DisplayList()
+    [HttpGet("All/{displayYear:int?}")]
+    public IActionResult DisplayList(int? displayYear)
     {
-        var year = parametersService.GetCurrentYear();
+        var currentYear = parametersService.GetCurrentYear();
+        
+        displayYear ??= currentYear;
 
         var races = raceService
-            .GetAll(year)
+            .GetAll(displayYear.Value)
             .OrderByDescending(r => r.Date)
             .ThenBy(r => r.Name);
         
+        var firstYear = parametersService.GetFirstYear();
+
         return View(new RaceListViewModel
         {
-            Year = year,
+            Year = displayYear.Value,
+            PreviousYear = firstYear < displayYear
+                ? displayYear - 1
+                : null,
+            NextYear = displayYear < currentYear
+                ? displayYear + 1
+                : null,
             Races = races.Select(r => new RaceViewModel
             {
                 Id = r.Id,

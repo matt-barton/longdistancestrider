@@ -5,6 +5,29 @@
     Layout = "_Layout";
 }
 
+@section YearsNavigation {
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full top-pad-10">
+            @if (Model.PreviousYear != null)
+            {
+                <span class="left-nav">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/Race/All/@Model.PreviousYear">
+                        &lt; @Model.PreviousYear
+                    </a>
+                </span>
+            }
+            @if (Model.NextYear != null)
+            {
+                <span class="right-nav">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/Race/All/@Model.NextYear">
+                        @Model.NextYear &gt;
+                    </a>
+                </span>
+            }
+        </div>
+    </div>
+}
+
 <h2 class="govuk-heading-m">@(Model.Year + " races")</h2>
 
 <div class="govuk-grid-row">
