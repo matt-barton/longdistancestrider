@@ -5,7 +5,7 @@ namespace LDS.Web.Shared.Extensions;
 
 public static class WebApplicationBuilderExtensions
 {
-    public static WebApplicationBuilder AddLdsServices(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddLdsDataServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddTransient<IRunnerService, RunnerService>();
         builder.Services.AddTransient<IRaceService, RaceService>();

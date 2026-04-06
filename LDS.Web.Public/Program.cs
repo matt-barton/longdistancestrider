@@ -2,6 +2,7 @@ using GovUk.Frontend.AspNetCore;
 using LDS.Data;
 using LDS.Data.Configuration;
 using LDS.Web.Public;
+using LDS.Web.Public.Caching;
 using LDS.Web.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddGovUkFrontend(options => options.Rebrand = true);
 
-builder.AddLdsServices();
+builder.Services.AddTransient<IParameterCache, ParameterCache>();
+builder.Services.AddTransient<ILeaderboardCache, LeaderboardCache>();
+builder.Services.AddTransient<IRaceCache, RaceCache>();
+builder.Services.AddTransient<IRaceParticipationCache, RaceParticipationCache>();
+builder.Services.AddTransient<IRunnerCache, RunnerCache>();
+
+builder.AddLdsDataServices();
 
 var app = builder.Build();
 

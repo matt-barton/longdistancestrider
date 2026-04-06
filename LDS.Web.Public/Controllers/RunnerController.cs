@@ -1,4 +1,4 @@
-using LDS.Data.Services.Interfaces;
+using LDS.Web.Public.Caching;
 using LDS.Web.Public.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,10 +6,9 @@ namespace LDS.Web.Public.Controllers
 {
     [Route("Runner")]
     public class RunnerController(
-        IRunnerService runnerService,
-        IRaceParticipationService raceParticipationService,
-        ITotalMilesService totalMilesService,
-        IParametersService parametersService) : Controller
+        IRunnerCache runnerCache,
+        IRaceParticipationCache raceParticipationCache,
+        IParameterCache parameterCache) : Controller
     {
         [HttpGet("{Id:int?}/{displayYear:int?}")]
         public IActionResult Index(int? id, int? displayYear)
@@ -19,20 +18,20 @@ namespace LDS.Web.Public.Controllers
                 return new NotFoundResult();    
             }
 
-            var runner = runnerService.Get(id.Value);
+            var runner = runnerCache.Get(id.Value);
             
             if (runner == null)
             {
                 return new NotFoundResult();    
             }
 
-            var currentYear = parametersService.GetCurrentYear();
+            var currentYear = parameterCache.GetCurrentYear();
 
             displayYear ??= currentYear;
             
-            var races = raceParticipationService.GetForRunner(runner.Id, displayYear.Value);
+            var races = raceParticipationCache.GetForRunner(runner.Id, displayYear.Value);
             
-            var firstYear = parametersService.GetFirstYear();
+            var firstYear = parameterCache.GetFirstYear();
 
             var model = new RunnerViewModel
             {

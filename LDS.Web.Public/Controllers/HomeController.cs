@@ -1,40 +1,24 @@
 using LDS.Data.Services.Interfaces;
+using LDS.Web.Public.Caching;
 using LDS.Web.Public.Extensions;
 using LDS.Web.Public.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace LDS.Web.Public.Controllers;
 
-public class HomeController(ITotalMilesService totalMilesService, IParametersService parametersService) : Controller
+public class HomeController(
+    ILeaderboardCache leaderboardCache,
+    IParameterCache parameterCache,
+    IMemoryCache cache) : Controller
 {
     // GET
     public IActionResult Index()
     {
-        var maleRunners = totalMilesService.GetLeaderboard("M")
-            .Take(10)
-            .Select(r => new LeaderboardRunnerViewModel
-            {
-                Name = r.FirstName + " " + r.LastName,
-                Id = r.RunnerId,
-                Miles = r.Miles
-            })
-            .ToList()
-            .WithPositions();
-            
-        var femaleRunners = totalMilesService.GetLeaderboard("F")
-            .Take(10)
-            .Select(r => new LeaderboardRunnerViewModel
-            {
-                Name = r.FirstName + " " + r.LastName,
-                Id = r.RunnerId,
-                Miles = r.Miles
-            })
-            .ToList()
-            .WithPositions();
-
-        var year = parametersService.GetCurrentYear();
-            
-        var lastUpdated = parametersService.GetLastUpdated();
+        var maleRunners = leaderboardCache.GetLeaderboardRunners("M", 10);
+        var femaleRunners = leaderboardCache.GetLeaderboardRunners("F", 10);
+        var year = parameterCache.GetCurrentYear();
+        var lastUpdated = parameterCache.GetLastUpdated();
 
         return View(new LeaderboardViewModel
         {

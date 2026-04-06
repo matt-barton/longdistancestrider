@@ -27,7 +27,7 @@ builder.Services.AddGovUkFrontend();
 
 builder.Logging.AddConsole();
 
-builder.AddLdsServices();
+builder.AddLdsDataServices();
 
 var app = builder.Build();
 

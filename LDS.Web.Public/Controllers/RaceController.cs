@@ -1,25 +1,27 @@
-﻿using LDS.Data.Services.Interfaces;
+﻿using LDS.Web.Public.Caching;
 using LDS.Web.Public.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDS.Web.Public.Controllers;
 
 [Route("/Race")]
-public class RaceController (IRaceService raceService, IParametersService parametersService, IRaceParticipationService raceParticipationService) : Controller
+public class RaceController (
+    IRaceCache raceCache,
+    IParameterCache parametersCache,
+    IRaceParticipationCache raceParticipationCache) : Controller
 {
     [HttpGet("All/{displayYear:int?}")]
     public IActionResult DisplayList(int? displayYear)
     {
-        var currentYear = parametersService.GetCurrentYear();
+        var currentYear = parametersCache.GetCurrentYear();
         
         displayYear ??= currentYear;
 
-        var races = raceService
-            .GetAll(displayYear.Value)
+        var races = raceCache.GetAll(displayYear.Value)
             .OrderByDescending(r => r.Date)
             .ThenBy(r => r.Name);
         
-        var firstYear = parametersService.GetFirstYear();
+        var firstYear = parametersCache.GetFirstYear();
 
         return View(new RaceListViewModel
         {
@@ -42,11 +44,11 @@ public class RaceController (IRaceService raceService, IParametersService parame
     [HttpGet("{raceId:int}")]
     public IActionResult DisplaySingle(int raceId)
     {
-        var race = raceService.Get(raceId);
+        var race = raceCache.Get(raceId);
 
         if (race == null) return NotFound();
 
-        var runners = raceParticipationService
+        var runners = raceParticipationCache
             .GetForRace(raceId)
             .OrderByDescending(r => r.Miles)
             .ThenBy(r => r.RunnerLastName)
