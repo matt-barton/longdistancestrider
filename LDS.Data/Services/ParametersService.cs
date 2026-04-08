@@ -19,6 +19,11 @@ public class ParametersService (LdsContext ldsContext) : IParametersService
         return GetDateTime("LastUpdated");
     }
 
+    public string GetPublicAppUrl()
+    {
+        return GetString("PublicAppUrl");
+    }
+
     private int GetInteger(string name)
     {
         return int.Parse(ldsContext.Parameters
@@ -33,5 +38,12 @@ public class ParametersService (LdsContext ldsContext) : IParametersService
                 .SingleOrDefault(p => p.Name == name)!
                 .Value
         );
+    }
+
+    private string GetString(string name)
+    {
+        return ldsContext.Parameters
+            .SingleOrDefault(p => p.Name == name)!
+            .Value;
     }
 }
