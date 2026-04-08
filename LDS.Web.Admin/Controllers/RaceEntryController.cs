@@ -1,6 +1,8 @@
 ﻿using LDS.Data;
 using LDS.Data.Services.Interfaces;
+using LDS.Web.Admin.Caching;
 using LDS.Web.Admin.ViewModels;
+using LDS.Web.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,8 @@ namespace LDS.Web.Admin.Controllers;
 public class RaceEntryController(
     IRaceService raceService,
     IRunnerService runnerService,
-    IRaceEntryService raceEntryService)
+    IRaceEntryService raceEntryService,
+    ICacheInvalidation cacheInvalidation)
     : Controller
 {
     [HttpGet("Edit/{raceId}/{runnerId}")]
@@ -57,9 +60,29 @@ public class RaceEntryController(
         {
             return BadRequest("Race and Runner must be specified");
         }
-        
-        raceEntry.ChangesSaved = await raceEntryService.UpdateMiles(raceEntry.RaceId.Value, raceEntry.RunnerId.Value, raceEntry.Miles);
 
+        var race = raceService.Get(raceEntry.RaceId.Value);
+        if (race == null)
+        {
+            return NotFound("Race not found");
+        }
+        
+        var runner = runnerService.Get(raceEntry.RunnerId.Value);
+        if (runner == null)
+        {
+            return NotFound("Runner not found");
+        }
+
+        raceEntry.ChangesSaved = await raceEntryService.UpdateMiles(raceEntry.RaceId.Value, raceEntry.RunnerId.Value, raceEntry.Miles);
+        cacheInvalidation.Invalidate([new CacheInvalidationDetail
+        {
+            Action = CacheInvalidationAction.EditRaceEntry,
+            RunnerId = raceEntry.RunnerId.ToString(),
+            RaceId = raceEntry.RaceId.ToString(),
+            Gender = runner.Gender,
+            Year = race.Date!.Value.Year.ToString()
+        }]);
+        
         return View(raceEntry);
     }
 

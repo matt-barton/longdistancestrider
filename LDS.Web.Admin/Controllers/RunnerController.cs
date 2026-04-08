@@ -1,6 +1,8 @@
 using LDS.Data.Services.Interfaces;
+using LDS.Web.Admin.Caching;
 using LDS.Web.Admin.Extensions;
 using LDS.Web.Admin.ViewModels;
+using LDS.Web.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDS.Web.Admin.Controllers
@@ -10,7 +12,8 @@ namespace LDS.Web.Admin.Controllers
         IRunnerService runnerService,
         IRaceParticipationService raceParticipationService,
         ITotalMilesService totalMilesService,
-        IParametersService parametersService) : Controller
+        IParametersService parametersService,
+        ICacheInvalidation cacheInvalidation) : Controller
     {
         [HttpGet("{Id}")]
         public IActionResult Index(int? id)
@@ -64,8 +67,16 @@ namespace LDS.Web.Admin.Controllers
         }
 
         [HttpPost("Edit/{runner}")]
-        public async Task<IActionResult> Edit (RunnerViewModel runner)
+        public async Task<IActionResult> Edit (int id, string firstName, string lastName, string gender)
         {
+            var runner = new RunnerViewModel
+            {
+                Id = id,
+                FirstName = firstName,
+                LastName = lastName,
+                Gender = gender
+            };
+            
             if (!ModelState.IsValid)
             {
                 return View(runner);
@@ -78,6 +89,13 @@ namespace LDS.Web.Admin.Controllers
             
             runner.ChangesSaved = await runnerService.Update(runner.Id, runner.FirstName, runner.LastName, runner.Gender);;
 
+            cacheInvalidation.Invalidate([new CacheInvalidationDetail
+            {
+                Action = CacheInvalidationAction.EditRunner,
+                RunnerId = runner.Id.ToString(),
+                Gender = runner.Gender
+            }]);
+            
             return View(runner);
         }
 

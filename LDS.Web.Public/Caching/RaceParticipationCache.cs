@@ -14,7 +14,7 @@ public class RaceParticipationCache (IRaceParticipationService service, IMemoryC
 {
     public IEnumerable<RaceParticipation> GetForRace(int raceId)
     {
-        var cacheKey = $"Race-Participation-For-Race-{raceId}";
+        var cacheKey = $"Race_Participation_For_Race_{raceId}";
         if (!cache.TryGetValue(cacheKey, out IEnumerable<RaceParticipation> raceParticipations))
         {
             raceParticipations = service.GetForRace(raceId);
@@ -26,7 +26,7 @@ public class RaceParticipationCache (IRaceParticipationService service, IMemoryC
     }
     public IEnumerable<RaceParticipation> GetForRunner(int runnerId, int year)
     {
-        var cacheKey = $"Race-Participation-For-Runner-{runnerId}-{year}";
+        var cacheKey = $"Race_Participation_For_Runner_{runnerId}_{year}";
         if (!cache.TryGetValue(cacheKey, out IEnumerable<RaceParticipation> raceParticipations))
         {
             raceParticipations = service.GetForRunner(runnerId, year);

@@ -22,7 +22,7 @@ public class LeaderboardCache (ITotalMilesService totalMilesService, IMemoryCach
     
     public IEnumerable<LeaderboardRunnerViewModel> GetLeaderboardRunners(string gender, int? take = null)
     {
-        var cacheKey = $"Leaderboard_top10_{gender}";
+        var cacheKey = $"Leaderboard_Top10_{gender}";
         if (!cache.TryGetValue(cacheKey, out IEnumerable<LeaderboardRunnerViewModel> runners))
         {
             var result= totalMilesService.GetLeaderboard(gender);

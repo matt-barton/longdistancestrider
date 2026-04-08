@@ -12,7 +12,7 @@ public class RunnerCache (IRunnerService runnerService, IMemoryCache cache) : IR
 {
     public Runner? Get(int id)
     {
-        var cacheKey = $"Runner-{id}";
+        var cacheKey = $"Runner_{id}";
         if (!cache.TryGetValue(cacheKey, out Runner? runner))
         {
             runner = runnerService.Get(id);

@@ -15,7 +15,7 @@ public class RaceCache (IRaceService raceService, IMemoryCache cache) : IRaceCac
 {
     public IEnumerable<Race>? GetAll(int year)
     {
-        var cacheKey = $"All-Races-{year}";
+        var cacheKey = $"Race_All_{year}";
         if (!cache.TryGetValue(cacheKey, out IEnumerable<Race>? races))
         {
             races = raceService.GetAll(year);
@@ -28,7 +28,7 @@ public class RaceCache (IRaceService raceService, IMemoryCache cache) : IRaceCac
 
     public Race? Get(int id)
     {
-        var cacheKey = $"Race-{id}";
+        var cacheKey = $"Race_{id}";
         if (!cache.TryGetValue(cacheKey, out Race? race))
         {
             race = raceService.Get(id);

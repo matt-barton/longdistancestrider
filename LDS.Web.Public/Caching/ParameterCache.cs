@@ -29,7 +29,7 @@ public class ParameterCache (IParametersService parameterService, IMemoryCache c
     
     private int GetInteger(string name)
     {
-        var cacheKey = $"ParameterCache_{name}";
+        var cacheKey = $"Parameter_{name}";
         if (!cache.TryGetValue(cacheKey, out int value))
         {
             value = name switch
@@ -47,7 +47,7 @@ public class ParameterCache (IParametersService parameterService, IMemoryCache c
     
     private DateTime GetDateTime(string name)
     {
-        var cacheKey = $"ParameterCache_{name}";
+        var cacheKey = $"Parameter_{name}";
         if (!cache.TryGetValue(cacheKey, out DateTime value))
         {
             value = name switch

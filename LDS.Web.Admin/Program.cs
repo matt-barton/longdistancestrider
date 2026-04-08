@@ -3,6 +3,7 @@ using LDS.Data;
 using LDS.Data.Configuration;
 using LDS.Web.Shared.Extensions;
 using LDS.Web.Admin;
+using LDS.Web.Admin.Caching;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddGovUkFrontend();
 
 builder.Logging.AddConsole();
+
+builder.Services.AddTransient<ICacheInvalidation, CacheInvalidation>();
 
 builder.AddLdsDataServices();
 

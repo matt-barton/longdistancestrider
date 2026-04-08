@@ -29,6 +29,7 @@ builder.Services.AddTransient<ILeaderboardCache, LeaderboardCache>();
 builder.Services.AddTransient<IRaceCache, RaceCache>();
 builder.Services.AddTransient<IRaceParticipationCache, RaceParticipationCache>();
 builder.Services.AddTransient<IRunnerCache, RunnerCache>();
+builder.Services.AddTransient<ICacheInvalidation, CacheInvalidation>();
 
 builder.AddLdsDataServices();
 

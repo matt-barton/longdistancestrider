@@ -1,5 +1,7 @@
 using LDS.Data.Services.Interfaces;
+using LDS.Web.Admin.Caching;
 using LDS.Web.Admin.ViewModels;
+using LDS.Web.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -9,7 +11,8 @@ namespace LDS.Web.Admin.Controllers
     public class RunnerConsolidationController(
         IRunnerService runnerService,
         IRaceParticipationService raceParticipationService,
-        IRaceEntryService raceEntryService) : Controller
+        IRaceEntryService raceEntryService,
+        ICacheInvalidation cacheInvalidation) : Controller
     {
 
         [HttpGet]
@@ -56,6 +59,17 @@ namespace LDS.Web.Admin.Controllers
                 runnerService.CreateAlias(consolidation.RunnerToKeepId, runnerToRemove.FullName);
             }
 
+            var raceParticipations = entriesToMove.ToList();
+            var cacheInvalidations = raceParticipations.Select(e => new CacheInvalidationDetail
+                {
+                    Action = CacheInvalidationAction.RunnerConsolidation,
+                    RunnerId = runnerToKeep.Id.ToString(),
+                    RaceId = e.RaceId.ToString(),
+                    Gender = runnerToKeep.Gender
+                }).ToList();
+            
+            cacheInvalidation.Invalidate(cacheInvalidations);
+
             var model = new RunnerConsolidationViewModel
             {
                 RemovedRunnerId = runnerToRemove.Id,
@@ -65,7 +79,7 @@ namespace LDS.Web.Admin.Controllers
                 AliasCreated = consolidation.CreateAlias,
                 EntriesMoved =
                 [
-                    .. entriesToMove.Select(e => new RunnerRaceEntryViewModel
+                    .. raceParticipations.Select(e => new RunnerRaceEntryViewModel
                     {
                         RaceName = e.RaceName,
                         Date = e.Date,
