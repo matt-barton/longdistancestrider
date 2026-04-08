@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using LDS.Data;
 using LDS.Data.Models;
+using LDS.Data.Services.Interfaces;
 using LDS.Web.Admin.Caching;
 using LDS.Web.Admin.ViewModels;
 using LDS.Web.Shared.Models;
@@ -9,7 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace LDS.Web.Admin.Controllers;
 
 [Route("RaceParticipation")]
-public class RaceParticipationController(LdsContext ldsContext, ICacheInvalidation cacheInvalidation) : Controller
+public class RaceParticipationController(
+    LdsContext ldsContext,
+    ICacheInvalidation cacheInvalidation,
+    IParametersService parametersService) : Controller
 {
     [HttpGet]
     public IActionResult Index()
@@ -29,6 +33,7 @@ public class RaceParticipationController(LdsContext ldsContext, ICacheInvalidati
         string[] runnerNames = raceParticipation.Runners.Split(",");
         int raceId = FindOrCreateRace(raceParticipation.Name, DateOnly.Parse(raceParticipation.Date));
         var cacheInvalidations = new List<CacheInvalidationDetail>();
+        var raceEntryCreated = false;
         
         foreach (string name in runnerNames)
         {
@@ -85,6 +90,7 @@ public class RaceParticipationController(LdsContext ldsContext, ICacheInvalidati
                         Year = DateOnly.Parse(raceParticipation.Date).Year.ToString(),
                         Gender = gender,
                     });
+                    raceEntryCreated = true;
                 }
             }
             catch (Exception e)  
@@ -97,7 +103,11 @@ public class RaceParticipationController(LdsContext ldsContext, ICacheInvalidati
             }
         }
 
-        cacheInvalidation.Invalidate(cacheInvalidations);
+        if (raceEntryCreated)
+        {
+            cacheInvalidation.Invalidate(cacheInvalidations);
+            await parametersService.SetLastUpdated(DateTime.Now);
+        }
 
         ViewBag.RaceParticipationByRace = GetRaceParticipationByRace(raceId);
         return View(raceParticipation);

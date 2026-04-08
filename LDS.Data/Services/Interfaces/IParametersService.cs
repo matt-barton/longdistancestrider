@@ -5,5 +5,6 @@ public interface IParametersService
     public int GetCurrentYear();
     public int GetFirstYear();
     public DateTime GetLastUpdated();
+    public Task SetLastUpdated(DateTime date);
     public string GetPublicAppUrl();
 }
