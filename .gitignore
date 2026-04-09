@@ -1,6 +1,7 @@
 ﻿node_modules
 .idea/*
 appsettings.Development.json
+appsettings.Production.json
 appsettings.json
 launchSettings.json
 [Dd]ebug/
