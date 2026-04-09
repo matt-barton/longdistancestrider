@@ -9,6 +9,13 @@
     Race Participation
 </h1>
 
+@if (Model?.ErrorMessage != null)
+{
+    <div class="govuk-error-message">
+        @Model.ErrorMessage
+    </div>
+}
+
 <form method="post" enctype="application/x-www-form-urlencoded">
     @Html.AntiForgeryToken()
 
@@ -17,7 +24,7 @@
         Race name
     </label>
     <input class="govuk-input" id="name" name="Name" type="text" spellcheck="false" value="@Model?.Name">
-    @Html.ValidationMessageFor(m => m.Name, null, new { @class = "govuk-error-message"})
+    @Html.ValidationMessageFor(m => m!.Name, null, new { @class = "govuk-error-message"})
     </div>
 
     <div class="govuk-form-group">
@@ -25,15 +32,15 @@
         Date
     </label>
     <input class="govuk-input" id="date" name="Date" type="date" value="@Model?.Date">
-    @Html.ValidationMessageFor(m => m.Date, null, new { @class = "govuk-error-message"})
+    @Html.ValidationMessageFor(m => m!.Date, null, new { @class = "govuk-error-message"})
     </div>
 
     <div class="govuk-form-group">
     <label class="govuk-label" for="runners">
         Runners
     </label>
-    <textarea class="govuk-textarea" id="runners" name="runners" rows="5"></textarea>
-    @Html.ValidationMessageFor(m => m.Runners, null, new { @class = "govuk-error-message"})
+    <textarea class="govuk-textarea" id="runners" name="runners" rows="5">@Model?.Runners</textarea>
+    @Html.ValidationMessageFor(m => m!.Runners, null, new { @class = "govuk-error-message"})
     </div>
 
     <div class="govuk-form-group">
@@ -41,7 +48,7 @@
         Miles
     </label>
     <input class="govuk-input" id="miles" name="Miles" type="text" spellcheck="false" value="@Model?.Miles">
-    @Html.ValidationMessageFor(m => m.Miles, null, new { @class = "govuk-error-message"})
+    @Html.ValidationMessageFor(m => m!.Miles, null, new { @class = "govuk-error-message"})
     </div>
 
     <button type="submit" class="govuk-button" data-module="govuk-button">
@@ -79,7 +86,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var entry in participation?.Entries)
+                            @foreach (var entry in participation.Entries!)
                             {
                                 <tr class="govuk-table--row">
                                     <td class="govuk-table__cell">@entry.RunnerId</td>

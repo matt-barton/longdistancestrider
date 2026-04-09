@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using LDS.Data;
+using LDS.Data.Exceptions;
 using LDS.Data.Models;
 using LDS.Data.Services.Interfaces;
 using LDS.Web.Admin.Caching;
@@ -69,7 +70,17 @@ public class RaceParticipationController(
                     }
                 }
 
-                int runnerId = FindOrCreateRunner(runnerName, gender);
+                int runnerId;
+                try
+                {
+                    runnerId = FindOrCreateRunner(runnerName, gender);
+                }
+                catch (AmbiguousRunnerException e)
+                {
+                    raceParticipation.ErrorMessage = $"Ambiguous runner {e.RunnerName} entered. Add gender to be specific.";
+                    return View(raceParticipation);
+                }
+
                 var raceEntry = new RaceEntry
                 {
                     RunnerId = runnerId,
@@ -77,8 +88,7 @@ public class RaceParticipationController(
                     Miles = miles
                 };
                 var alreadyExists = ldsContext.RaceEntries
-                    .Where(re => re.RunnerId == runnerId && re.RaceId == raceId)
-                    .Count() > 0;
+                    .Count(re => re.RunnerId == runnerId && re.RaceId == raceId) > 0;
 
                 if (!alreadyExists)
                 {
@@ -95,7 +105,7 @@ public class RaceParticipationController(
             }
             catch (Exception e)  
             {
-                  
+                // TODO: log errors      
             }
             finally
             {
@@ -107,6 +117,7 @@ public class RaceParticipationController(
         {
             cacheInvalidation.Invalidate(cacheInvalidations);
             await parametersService.SetLastUpdated(DateTime.Now);
+            raceParticipation.Runners = "";
         }
 
         ViewBag.RaceParticipationByRace = GetRaceParticipationByRace(raceId);
@@ -264,10 +275,31 @@ public class RaceParticipationController(
         var nameParts = fullname.Trim().Split(' ');
         var lastName = nameParts.LastOrDefault();
         var firstName = string.Join(" ", nameParts.Take(nameParts.Length-1));
+        Runner? runner;
 
-        var runner = (from r in ldsContext.Runners
-            where r.FirstName == firstName && r.LastName == lastName
-            select r).SingleOrDefault();
+        try
+        {
+            if (gender == null)
+            {
+                runner = ldsContext.Runners.SingleOrDefault(r =>
+                    r.FirstName == firstName &&
+                    r.LastName == lastName);
+            }
+            else
+            {
+                runner = ldsContext.Runners.SingleOrDefault(r =>
+                    r.FirstName == firstName &&
+                    r.LastName == lastName &&
+                    r.Gender == gender);
+            }
+        }
+        catch (Exception e)
+        {
+            throw new AmbiguousRunnerException(e.Message, e)
+            {
+                RunnerName =  fullname
+            };
+        }
 
         if (runner == null)
         {

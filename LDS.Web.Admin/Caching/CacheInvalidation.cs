@@ -23,8 +23,15 @@ public class CacheInvalidation : ICacheInvalidation
     
     public async void Invalidate(IEnumerable<CacheInvalidationDetail> detail)
     {
-        var response = await _httpClient.PostAsJsonAsync("Api/Cache/Invalidate", detail);
-
-        response.EnsureSuccessStatusCode();
+        try
+        {
+            await _httpClient.PostAsJsonAsync("Api/Cache/Invalidate", detail);
+        }
+        catch (Exception e)
+        {
+            // TODO: log this error
+            Console.WriteLine(e);
+            // and swallow the error
+        }
     }
 }

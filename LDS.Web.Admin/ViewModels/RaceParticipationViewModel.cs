@@ -15,4 +15,5 @@ public class RaceParticipationViewModel
     [Required]
     public string? Runners { get; set; }
 
+    public string? ErrorMessage { get; set; }
 }
