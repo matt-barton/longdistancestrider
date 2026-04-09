@@ -34,4 +34,9 @@ public class HomeController(
     {
         return View();
     }
+    
+    public IActionResult Error ()
+    {
+        return View();
+    }
 }

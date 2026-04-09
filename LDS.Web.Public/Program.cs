@@ -4,6 +4,7 @@ using LDS.Data.Configuration;
 using LDS.Web.Public;
 using LDS.Web.Public.Caching;
 using LDS.Web.Shared.Extensions;
+using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,8 @@ builder.Services.AddTransient<ICacheInvalidation, CacheInvalidation>();
 
 builder.AddLdsDataServices();
 
+StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,5 +58,4 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.UseAntiforgery();
-app.UseStatusCodePages();
 app.Run();
