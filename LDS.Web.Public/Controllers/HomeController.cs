@@ -28,4 +28,10 @@ public class HomeController(
             Men = maleRunners
         });
     }
+
+    [HttpGet("/About")]
+    public IActionResult About ()
+    {
+        return View();
+    }
 }
