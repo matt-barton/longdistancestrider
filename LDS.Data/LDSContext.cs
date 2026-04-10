@@ -2,10 +2,11 @@ using LDS.Data.Configuration;
 using LDS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Environment = System.Environment;
 
 namespace LDS.Data;
 
-public class LdsContext : DbContext
+public class LdsContext(DbContextOptions<LdsContext> options) : DbContext(options)
 {
     public DbSet<Runner> Runners { get; set; }
     public DbSet<Race> Races { get; set; }
@@ -15,18 +16,4 @@ public class LdsContext : DbContext
     public DbSet<TotalMiles2025> TotalMiles2025 { get; set; }
     public DbSet<RunnerAlias> RunnerAliases { get; set; }
     public DbSet<Parameter> Parameters { get; set; }
-    
-    private readonly Settings _settings;
-
-    public LdsContext (IOptions<Settings> settings)
-    {
-        _settings = settings.Value;
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        var connectionString = _settings?.Database?.ConnectionString
-                               ?? throw new InvalidOperationException("Database connection string is not set.");
-        options.UseSqlServer(connectionString);
-    }
 }

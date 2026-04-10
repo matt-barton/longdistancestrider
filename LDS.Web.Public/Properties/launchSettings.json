@@ -7,7 +7,8 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5153",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SQLAZURECONNSTR_Default": "Server=tcp:46.224.199.190,1433;Initial Catalog=lds-db;Persist Security Info=False;User ID=sa;Password=fwtE5SI8nqHICiAg;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;"
       }
     },
     "https": {
@@ -16,7 +17,8 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7276;http://localhost:5153",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SQLAZURECONNSTR_Default": "Server=tcp:46.224.199.190,1433;Initial Catalog=lds-db;Persist Security Info=False;User ID=sa;Password=fwtE5SI8nqHICiAg;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;"
       }
     }
   }
