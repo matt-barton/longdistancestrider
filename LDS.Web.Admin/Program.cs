@@ -4,6 +4,7 @@ using LDS.Data.Configuration;
 using LDS.Web.Shared.Extensions;
 using LDS.Web.Admin;
 using LDS.Web.Admin.Caching;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,10 @@ builder.Services.Configure<RequestLocalizationOptions>(opt =>
         .AddSupportedCultures(["en-GB"])
         .AddSupportedUICultures(["en-GB"]);
 });
-builder.Services.AddDbContext<LdsContext>();
+
+builder.Services.AddDbContext<LdsContext>(o => o
+    .UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddRazorPages();
