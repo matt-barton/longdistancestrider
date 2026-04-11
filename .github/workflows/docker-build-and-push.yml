@@ -25,3 +25,10 @@ jobs:
           push: true
           tags: ghcr.io/matt-barton/long-distance-strider-public:latest
           file: Dockerfile.Public
+
+      - name: Build and push Admin app image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          push: true
+          tags: ghcr.io/matt-barton/long-distance-strider-admin:latest
+          file: Dockerfile.Admin
