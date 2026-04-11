@@ -1,0 +1,2 @@
+﻿ALTER TABLE Parameters ALTER COLUMN Value VARCHAR (250)
+GO
