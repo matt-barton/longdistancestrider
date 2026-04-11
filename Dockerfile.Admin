@@ -1,0 +1,21 @@
+# Dockerfile
+ARG DOTNET_VERSION=10.0
+ARG BUILD_CONFIGURATION=Release
+
+FROM mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION AS build
+
+WORKDIR /src
+COPY LDS.Web.Admin LDS.Web.Admin
+COPY LDS.Web.Shared LDS.Web.Shared
+COPY LDS.Data LDS.Data
+
+WORKDIR /src/LDS.Web.Admin
+RUN dotnet restore "./LDS.Web.Admin.csproj"
+RUN dotnet build "./LDS.Web.Admin.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
+
+RUN dotnet publish "./LDS.Web.Admin.csproj" -c "$BUILD_CONFIGURATION" -o /app/publish -r linux-musl-x64
+
+FROM mcr.microsoft.com/dotnet/aspnet:$DOTNET_VERSION AS run
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT [ "dotnet", "LDS.Web.Admin.dll" ]

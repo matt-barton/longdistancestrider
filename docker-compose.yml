@@ -1,0 +1,25 @@
+services:
+  sqldata:
+    container_name: "lds-db"
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - "./sql/data:/var/opt/mssql/data"
+  public:
+    container_name: "webapp-public"
+    image: long-distance-strider-public:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SQLAZURECONNSTR_Default=Server=tcp:46.224.199.190,1433;Initial Catalog=lds-db;Persist Security Info=False;User ID=sa;Password=fwtE5SI8nqHICiAg;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+  admin:
+    container_name: "webapp-admin"
+    image: long-distance-strider-admin:latest
+    ports:
+      - "8081:8080"
+    environment:
+      - SQLAZURECONNSTR_Default=Server=tcp:46.224.199.190,1433;Initial Catalog=lds-db;Persist Security Info=False;User ID=sa;Password=fwtE5SI8nqHICiAg;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
