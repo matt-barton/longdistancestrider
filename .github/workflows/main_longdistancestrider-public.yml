@@ -18,6 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Temp
+        run: Get-Location
+        
+      - name: Remove admin oroject
+        run: del -Recurse -Force "./LDS.Web.Admin"
+        
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
