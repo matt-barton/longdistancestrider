@@ -1,5 +1,9 @@
 @model IEnumerable<LDS.Web.Public.ViewModels.LeaderboardRunnerViewModel>
 
+@{
+    var year = ViewBag.Year != null ? ViewBag.Year : "";    
+}
+
 @if (Model.Any())
 {
     <table class="govuk-table">
@@ -16,7 +20,7 @@
             <tr class="govuk-table__row lds-table-row">
                 <th scope="row" class="govuk-table__header lds-table-cell">@entry.Position</th>
                 <td class="govuk-table__cell lds-table-cell">
-                    <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@entry.Id">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@entry.Id/@year">
                         @entry.Name
                     </a>
                 </td>
