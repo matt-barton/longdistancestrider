@@ -1,6 +1,5 @@
 using GovUk.Frontend.AspNetCore;
 using LDS.Data;
-using LDS.Data.Configuration;
 using LDS.Web.Shared.Extensions;
 using LDS.Web.Admin;
 using LDS.Web.Admin.Caching;
@@ -12,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.Configure<Settings>(builder.Configuration.GetSection("Settings"));
+builder.Configuration.AddEnvironmentVariables();
+
 builder.Services.Configure<RequestLocalizationOptions>(opt =>
 {
     opt.SetDefaultCulture("en-GB")

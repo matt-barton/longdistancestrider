@@ -20,11 +20,6 @@ public class ParametersService (LdsContext ldsContext) : IParametersService
         return GetDateTime("LastUpdated");
     }
 
-    public string GetPublicAppUrl()
-    {
-        return GetString("PublicAppUrl");
-    }
-
     public async Task SetLastUpdated(DateTime date)
     {
         try

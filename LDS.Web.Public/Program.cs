@@ -1,6 +1,5 @@
 using GovUk.Frontend.AspNetCore;
 using LDS.Data;
-using LDS.Data.Configuration;
 using LDS.Web.Public;
 using LDS.Web.Public.Caching;
 using LDS.Web.Shared.Extensions;

@@ -10,14 +10,18 @@ public interface ICacheInvalidation
 public class CacheInvalidation : ICacheInvalidation
 {
     private IParametersService _parametersService;
-    private HttpClient _httpClient;
-    public CacheInvalidation(IParametersService parametersService)
+    private IConfiguration _config;
+    private readonly HttpClient _httpClient;
+    
+    public CacheInvalidation(IParametersService parametersService, IConfiguration config)
     {
         _parametersService = parametersService;
-        var url = parametersService.GetPublicAppUrl();
+        _config = config;
+        
+        var url = config["LDS_PUBLIC_APP_URL"];
         _httpClient = new()
         {
-            BaseAddress = new Uri(url)
+            BaseAddress = new Uri(url!)
         };    
     }
     
