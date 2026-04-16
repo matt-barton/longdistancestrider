@@ -31,4 +31,18 @@ public class CacheController (IMemoryCache cache, ICacheInvalidation cacheInvali
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPost("InvalidateAll")]
+    public IActionResult InvalidateAll()
+    {
+        try
+        {
+            cacheInvalidation.InvalidateAll();
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

@@ -7,6 +7,7 @@ namespace LDS.Web.Public.Caching;
 public interface ICacheInvalidation
 {
     public List<string> Invalidate(IEnumerable<CacheInvalidationDetail> details);
+    public void InvalidateAll();
 }
 
 public class CacheInvalidation (IMemoryCache cache, IParameterCache parameterCache) : ICacheInvalidation
@@ -95,6 +96,11 @@ public class CacheInvalidation (IMemoryCache cache, IParameterCache parameterCac
             return new List<string>();
         }
         return new List<string>();
+    }
+
+    public void InvalidateAll()
+    {
+        ((MemoryCache)cache).Clear();
     }
 
     private List<string> CacheKeyForEachYear(string cacheKey)
