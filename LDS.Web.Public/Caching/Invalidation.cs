@@ -61,6 +61,7 @@ public class CacheInvalidation (IMemoryCache cache, IParameterCache parameterCac
                         keys.Add($"Leaderboard_{detail.Gender}_{detail.Year}");
                     }
                     keys.Add($"Race_All_{detail.Year}");
+                    keys.Add("Parameter_LastUpdated");
                     break;
 
                 case CacheInvalidationAction.EditRaceEntry:
