@@ -1,4 +1,5 @@
-﻿@model LDS.Web.Public.ViewModels.LeaderboardViewModel
+﻿@using NodaTime
+@model LDS.Web.Public.ViewModels.LeaderboardViewModel
 
 @{
     ViewBag.Title = "Long Distance Strider";
@@ -8,7 +9,12 @@
 <h2 class="govuk-heading-m">Long Distance Strider @Model.Year</h2>
 
 <p class="govuk-body">
-    Top ten in each category as at @(((DateTime)Model.LastUpdated!).ToString("d MMMM yyyy HH:mm"))
+    Top ten in each category as at
+    @(Instant.FromDateTimeUtc(
+        DateTime.SpecifyKind((DateTime)Model.LastUpdated!, DateTimeKind.Utc))
+            .InZone(DateTimeZoneProviders.Tzdb["Europe/London"])
+            .ToString("d MMMM yyyy HH:mm", null)
+    )
 </p>
 
 <hr class="govuk-section-break govuk-section-break--m">

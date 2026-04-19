@@ -41,8 +41,8 @@
                 Last updated: 
                 @(Instant.FromDateTimeUtc(
                     DateTime.SpecifyKind((DateTime)Model.LastUpdated, DateTimeKind.Utc))
-                    .InZone(DateTimeZoneProviders.Tzdb["Europe/London"])
-                    .ToString("d MMMM yyyy HH:mm", null)
+                        .InZone(DateTimeZoneProviders.Tzdb["Europe/London"])
+                        .ToString("d MMMM yyyy HH:mm", null)
                 )
             </span>
         }
