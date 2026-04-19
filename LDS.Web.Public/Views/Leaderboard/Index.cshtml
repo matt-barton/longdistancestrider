@@ -1,4 +1,5 @@
 ﻿@using LDS.Web.Public.Extensions
+@using NodaTime
 @model LDS.Web.Public.ViewModels.LeaderboardGenderViewModel
 
 @{
@@ -37,7 +38,12 @@
         @if (Model.LastUpdated != null)
         {
             <span class="govuk-caption-m">
-                Last updated: @(((DateTime)Model.LastUpdated).ToString("d MMMM yyyy HH:mm"))
+                Last updated: 
+                @(Instant.FromDateTimeUtc(
+                    DateTime.SpecifyKind((DateTime)Model.LastUpdated, DateTimeKind.Utc))
+                    .InZone(DateTimeZoneProviders.Tzdb["Europe/London"])
+                    .ToString("d MMMM yyyy HH:mm", null)
+                )
             </span>
         }
         <span class="govuk-caption-m">

@@ -116,7 +116,7 @@ public class RaceParticipationController(
         if (raceEntryCreated)
         {
             cacheInvalidation.Invalidate(cacheInvalidations);
-            await parametersService.SetLastUpdated(DateTime.Now);
+            await parametersService.SetLastUpdated(DateTime.Now.ToUniversalTime());
             raceParticipation.Runners = "";
         }
 
