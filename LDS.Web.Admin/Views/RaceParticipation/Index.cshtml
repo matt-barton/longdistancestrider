@@ -8,6 +8,9 @@
 <h1 class="govuk-heading-l">
     Race Participation
 </h1>
+<p class="govuk-body">
+    <strong>Last Added Race</strong>: @(Model?.LastAddedRace?.Id) - @(Model?.LastAddedRace?.Name) (@(Model?.LastAddedRace?.Date))
+</p>
 
 @if (Model?.ErrorMessage != null)
 {

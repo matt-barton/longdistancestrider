@@ -19,7 +19,11 @@ public class RaceParticipationController(
     [HttpGet]
     public IActionResult Index()
     {
-        return View();
+        var viewModel = new RaceParticipationViewModel
+        {
+            LastAddedRace = GetLastAddedRace(),
+        };
+        return View(viewModel);
     }
         
     [HttpPost]
@@ -121,6 +125,7 @@ public class RaceParticipationController(
         }
 
         ViewBag.RaceParticipationByRace = GetRaceParticipationByRace(raceId);
+        raceParticipation.LastAddedRace = GetLastAddedRace();
         return View(raceParticipation);
     }
 
@@ -172,6 +177,13 @@ public class RaceParticipationController(
         return x;
     }
 
+    private Race? GetLastAddedRace()
+    {
+        return ldsContext.Races
+            .OrderByDescending(r => r.Id)
+            .FirstOrDefault();
+    }
+    
     private RaceParticipationByRace GetRaceParticipationByRace (int raceId)
     {
         var raceParticipations = ldsContext.RacePartipation
