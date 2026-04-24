@@ -30,6 +30,14 @@
             <govuk-service-navigation-nav-item href="/RunnerConsolidation">Runner Consolidation</govuk-service-navigation-nav-item>
             <govuk-service-navigation-nav-item href="/Runner/List">Runners</govuk-service-navigation-nav-item>
             <govuk-service-navigation-nav-item href="/Runner/Leaderboard">Leaderboards</govuk-service-navigation-nav-item>
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <govuk-service-navigation-nav-item href="/Login/Logout">Logout</govuk-service-navigation-nav-item>
+            }
+            else
+            {
+                <govuk-service-navigation-nav-item href="/Login">Login</govuk-service-navigation-nav-item>
+            }
         </govuk-service-navigation-nav>
     </govuk-service-navigation>
 }

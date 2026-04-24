@@ -5,29 +5,43 @@
     Layout = "_Layout";
 }
 
-<h1 class="govuk-heading-l">Long Distance Strider @Model.Year</h1>
-
+<h1 class="govuk-heading-l">Long Distance Strider @Model.Year - Admin</h1>
 <hr class="govuk-section-break govuk-section-break--m">
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
-                <h2 class="govuk-heading-m">
-                    Women
-                </h2>
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <h2 class="govuk-heading-m">
+                        Women
+                    </h2>
+                </div>
             </div>
+            @await Html.PartialAsync("_LeaderboardRunnerList", Model.Women)
         </div>
-        @await Html.PartialAsync("_LeaderboardRunnerList", Model.Women)
-    </div>
-    <div class="govuk-grid-column-one-half">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
-                <h2 class="govuk-heading-m">
-                    Men
-                </h2>
+        <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <h2 class="govuk-heading-m">
+                        Men
+                    </h2>
+                </div>
             </div>
+            @await Html.PartialAsync("_LeaderboardRunnerList", Model.Men)
         </div>
-        @await Html.PartialAsync("_LeaderboardRunnerList", Model.Men)
     </div>
-</div>
+}
+else
+{
+    <form method="post">
+        <div class="text-center">
+            <a href="/Login/Login" class="govuk-button">
+                Sign in with Google
+            </a>
+        </div>
+    </form>
+}
+
+

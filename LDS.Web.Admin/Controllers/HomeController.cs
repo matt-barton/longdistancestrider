@@ -1,10 +1,12 @@
 ﻿using LDS.Data.Services.Interfaces;
 using LDS.Web.Admin.Extensions;
 using LDS.Web.Admin.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDS.Web.Admin.Controllers;
 
+[AllowAnonymous]
 public class HomeController(ITotalMilesService totalMilesService, IParametersService parametersService) : Controller
 {
     // GET
