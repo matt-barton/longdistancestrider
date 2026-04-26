@@ -1,45 +1,26 @@
 @model List<LDS.Web.Admin.ViewModels.RunnerRaceEntryViewModel>
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-half">
-                <p class="govuk-heading-s">
-                    Race
-                </p>
-            </div>
-            <div class="govuk-grid-column-one-quarter">
-                <p class="govuk-heading-s">
-                    Date
-                </p>
-            </div>
-            <div class="govuk-grid-column-one-quarter">
-                <p class="govuk-heading-s">
-                    Miles
-                </p>
-            </div>
-        </div>
-        @foreach(var entry in Model)
-        {
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-one-half">
-                    <p class="govuk-body">
-                        <a class="govuk-link govuk-link--no-visited-state" href="/Race/@entry.RaceId">
-                            @entry.RaceName
-                        </a>
-                    </p>
-                </div>
-                <div class="govuk-grid-column-one-quarter">
-                    <p class="govuk-body">
-                        @entry.Date
-                    </p>
-                </div>
-                <div class="govuk-grid-column-one-quarter">
-                    <p class="govuk-body">
-                        @entry.Miles.ToString("0.###")
-                    </p>
-                </div>
-            </div>
-        }
-    </div>
-</div>
+<table class="govuk-table">
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Race</th>
+        <th scope="col" class="govuk-table__header">Date</th>
+        <th scope="col" class="govuk-table__header">Miles</th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    @foreach (var entry in Model)
+    {
+        <tr class="govuk-table__row lds-table-row">
+            <td class="govuk-table__cell lds-table-cell">
+                <a class="govuk-link govuk-link--no-visited-state" href="/Race/@entry.RaceId">
+                    @entry.RaceName
+                </a>
+            </td>
+            <td class="govuk-table__cell lds-table-cell">
+                @entry.Date.ToString("dd/MM/yyyy")
+            </td>
+            <td class="govuk-table__cell lds-table-cell">@entry.Miles.ToString("0.###")</td>
+        </tr>
+    }
+</table>

@@ -6,23 +6,33 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-        <h1 class="govuk-heading-l">@Model.DisplayName</h1>
-    </div>
-    <div class="govuk-grid-column-one-quarter">
-        <span class="govuk-caption-l top-pad-5">(@(String.IsNullOrEmpty(Model.Gender) ? "Gender not set" : Model.Gender))</span>
-    </div>
-    <div class="govuk-grid-column-one-quarter">
-        <a class="govuk-link govuk-link--no-visited-state" href="/Runner/Edit/@Model.Id">Edit</a>
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header lds-table-cell">@Model.DisplayName</th>
+                <td class="govuk-table__cell lds-table-cell">(@(String.IsNullOrEmpty(Model.Gender) ? "Gender not set" : Model.Gender))</td>
+                <td class="govuk-table__cell lds-table-cell">
+                    <a class="govuk-link govuk-link--no-visited-state" href="/Runner/Edit/@Model.Id">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+            </thead>
+        </table>
     </div>
 
-</div>
+    <div class="govuk-grid-column-full">
+        @await Html.PartialAsync("_RunnerRaceParticipation", Model.RaceEntries)
+    </div>
 
-@await Html.PartialAsync("_RunnerRaceParticipation", Model.RaceEntries)
-
-<div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">
-        <p class="govuk-body">
-            <span class="govuk-heading-s">Total:</span> @Model.TotalMiles?.ToString("0.###")
-        </p>
+        <table class="govuk-table">
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header lds-table-cell">Total:</th>
+                <td class="govuk-table__cell lds-table-cell">@Model.TotalMiles?.ToString("0.###")</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

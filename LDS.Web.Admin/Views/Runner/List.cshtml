@@ -12,40 +12,28 @@
     </div>
 </div>
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
-        <h2 class="govuk-heading-s">
-            Name
-        </h2>
-    </div>
-    <div class="govuk-grid-column-one-third">
-        <h2 class="govuk-heading-s">
-            Gender
-        </h2>
-    </div>
-</div>
-
-@foreach(var runner in Model)
-{
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
-            <p class="govuk-body">
-                @runner.DisplayName
-            </p>
-        </div>
-        <div class="govuk-grid-column-one-third">
-            <p class="govuk-body">
-                @runner.Gender
-            </p>
-        </div>
-        <div class="govuk-grid-column-one-third">
-            <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@runner.Id">
-                View                
-            </a>
-            <a class="govuk-link govuk-link--no-visited-state" href="/Runner/Edit/@runner.Id">
-                Edit                
-            </a>
-        </div>
-    </div>
-}
-
+<table class="govuk-table">
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Name</th>
+        <th scope="col" class="govuk-table__header">Gender</th>
+        <th scope="col" class="govuk-table__header"></th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    @foreach (var runner in Model)
+    {
+        <tr class="govuk-table__row lds-table-row">
+            <td class="govuk-table__cell lds-table-cell">@runner.DisplayName</td>
+            <td class="govuk-table__cell lds-table-cell">@runner.Gender</td>
+            <td class="govuk-table__cell lds-table-cell">
+                <a class="govuk-link govuk-link--no-visited-state" href="/Runner/@runner.Id">
+                    View                
+                </a>
+                <a class="govuk-link govuk-link--no-visited-state" href="/Runner/Edit/@runner.Id">
+                    Edit                
+                </a>
+            </td>
+        </tr>
+    }
+</table>
