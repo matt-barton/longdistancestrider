@@ -9,6 +9,7 @@ public class RunnerViewModel
     public string? LastName { get; set; }
     public string? DisplayName { get; set; }
     public string? Gender { get; set; }
+    public IEnumerable<string> Aliases { get; set; }
     public List<RunnerRaceEntryViewModel>? RaceEntries { get; set; }
     public decimal? TotalMiles
     {

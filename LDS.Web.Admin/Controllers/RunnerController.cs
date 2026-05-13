@@ -10,6 +10,7 @@ namespace LDS.Web.Admin.Controllers
     [Route("Runner")]
     public class RunnerController(
         IRunnerService runnerService,
+        IRunnerAliasService runnerAliasService,
         IRaceParticipationService raceParticipationService,
         ITotalMilesService totalMilesService,
         IParametersService parametersService,
@@ -32,11 +33,14 @@ namespace LDS.Web.Admin.Controllers
 
             var races = raceParticipationService.GetForRunner(runner.Id);
             
+            var aliases = runnerAliasService.GetForRunner(runner.Id);
+            
             var model = new RunnerViewModel
             {
                 DisplayName = runner.FullName,
                 Id = runner.Id,
                 Gender = runner.Gender,
+                Aliases = aliases.Select(a => a.Alias).ToList()!,
                 RaceEntries = races.Select(re => new RunnerRaceEntryViewModel()
                 {
                     RaceName = re.RaceName,

@@ -20,11 +20,27 @@
             </thead>
         </table>
     </div>
+</div>
 
+@if (Model.Aliases.Any())
+{
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+        <div class="govuk-grid-column-full">
+            <span class="govuk-heading-s">Alias: </span>
+            <span class="govuk-body">
+                @(String.Join(", ", Model.Aliases))
+            </span>
+        </div>
+    </div>
+}
+
+<div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         @await Html.PartialAsync("_RunnerRaceParticipation", Model.RaceEntries)
     </div>
+</div>
 
+<div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">
         <table class="govuk-table">
             <tbody class="govuk-table__body">
